@@ -77,7 +77,9 @@ def summarize_pickle_globals(
                 continue
 
             if name == "STACK_GLOBAL":
-                global_name = f"{stack.pop()}.{stack.pop()}"
+                attr_name = stack.pop()
+                module_name = stack.pop()
+                global_name = f"{module_name}.{attr_name}"
                 globals_found.append(global_name)
                 stack.append(("GLOBAL", global_name))
                 continue
