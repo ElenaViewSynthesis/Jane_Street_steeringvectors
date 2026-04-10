@@ -1,0 +1,7 @@
+.venv/
+.tmp/
+__pycache__/
+*.pyc
+model.pt
+outputs/reports/*.json
+outputs/extracted/
