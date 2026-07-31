@@ -46,6 +46,8 @@ The current inspection script can:
 │   └── analysis-cpu.txt
 ├── docs/
 │   └── architecture_findings.md
+├── examples/
+│   └── summarize_linear_shapes.py
 ├── scripts/
 │   ├── architecture_worker.py
 │   ├── inspect_model.py
@@ -126,6 +128,22 @@ The launcher verifies the artifact hash, checks for exact Python 3.11 compatibil
 model into a private staging directory, and starts the worker with isolated namespaces, a Landlock
 filesystem allow-list, dropped capabilities, `no_new_privs`, an empty environment, and resource
 limits. The worker re-verifies the staged model before unpickling and does not run inference.
+
+## Summarizing Linear Layer Shapes
+
+After generating `outputs/reports/architecture_report.json`, run the included example from the
+repository root to print the first and last 25 linear layers, the 30 most common dimension pairs,
+the width range, and the number of distinct widths:
+
+```bash
+python3 examples/summarize_linear_shapes.py
+```
+
+To inspect a report at a different location:
+
+```bash
+python3 examples/summarize_linear_shapes.py --report path/to/architecture_report.json
+```
 
 ## Tests
 
