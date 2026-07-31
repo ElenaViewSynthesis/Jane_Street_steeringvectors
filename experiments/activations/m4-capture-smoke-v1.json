@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "suite_id": "m4-capture-smoke-v1",
+  "description": "Milestone 4 smoke suite for deterministic final-representation capture, predicate decoding, and MD5 hypothesis checks.",
+  "cases": [
+    {
+      "id": "activation-empty",
+      "input": "",
+      "family": "activation_baseline",
+      "factors": {
+        "variant": "empty"
+      }
+    },
+    {
+      "id": "activation-abc",
+      "input": "abc",
+      "family": "activation_baseline",
+      "factors": {
+        "variant": "md5_reference"
+      }
+    },
+    {
+      "id": "activation-puzzle-example",
+      "input": "vegetable dog",
+      "family": "activation_baseline",
+      "factors": {
+        "variant": "documented_example"
+      }
+    },
+    {
+      "id": "activation-controlled-pair",
+      "input": "red fox",
+      "family": "activation_baseline",
+      "factors": {
+        "variant": "controlled_pair"
+      }
+    }
+  ]
+}
