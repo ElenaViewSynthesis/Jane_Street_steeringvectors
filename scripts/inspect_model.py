@@ -3,10 +3,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import pickletools
 import re
-import subprocess
 import sys
 import zipfile
 from pathlib import Path
@@ -607,34 +605,6 @@ def summarize_loaded_object(obj: Any) -> dict[str, Any]:
     return summary
 
 
-def load_in_child_process(model_path: Path) -> int:
-    env = os.environ.copy()
-    env["CUDA_VISIBLE_DEVICES"] = ""
-    env["OMP_NUM_THREADS"] = "1"
-    env["MKL_NUM_THREADS"] = "1"
-
-    cmd = [sys.executable, str(Path(__file__).resolve()), "--model", str(model_path), "--_load-worker"]
-    completed = subprocess.run(cmd, cwd=str(ROOT), env=env, check=False)
-    return completed.returncode
-
-
-def load_model_cpu_only(model_path: Path) -> dict[str, Any]:
-    os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
-    os.environ.setdefault("OMP_NUM_THREADS", "1")
-    os.environ.setdefault("MKL_NUM_THREADS", "1")
-
-    import torch
-
-    torch.set_num_threads(1)
-    try:
-        torch.set_num_interop_threads(1)
-    except RuntimeError:
-        pass
-
-    obj = torch.load(model_path, map_location="cpu", weights_only=False)
-    return summarize_loaded_object(obj)
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -675,14 +645,9 @@ def parse_args() -> argparse.Namespace:
         "--load-pickle",
         action="store_true",
         help=(
-            "After safe archive inspection, opt in to a controlled CPU-only torch.load. "
-            "This executes pickle payloads."
+            "Deprecated and disabled. Use scripts/run_architecture_sandbox.py for "
+            "hardened live loading."
         ),
-    )
-    parser.add_argument(
-        "--_load-worker",
-        action="store_true",
-        help=argparse.SUPPRESS,
     )
     return parser.parse_args()
 
@@ -695,17 +660,6 @@ def main() -> int:
     if not model_path.exists():
         print(f"Model file not found: {model_path}", file=sys.stderr)
         return 1
-
-    if args._load_worker:
-        try:
-            summary = load_model_cpu_only(model_path)
-        except Exception as exc:
-            print(f"Controlled load failed: {exc}", file=sys.stderr)
-            return 1
-
-        print("Controlled CPU-only load summary")
-        print(json.dumps(summary, indent=2))
-        return 0
 
     try:
         summary = summarize_archive(
@@ -728,25 +682,17 @@ def main() -> int:
         print("Artifact SHA-256 does not match the trusted checksum.", file=sys.stderr)
         return 2
 
-    if args.load_pickle and not expected_sha256:
+    if args.load_pickle:
         print(
-            "--load-pickle requires a known artifact or an independently trusted "
-            "--expected-sha256 value.",
+            "Direct pickle loading is disabled. Use scripts/run_architecture_sandbox.py.",
             file=sys.stderr,
         )
         return 2
 
-    if not args.load_pickle:
-        print()
-        print("No pickle payload was executed.")
-        print(
-            "Run again with --load-pickle only when you want an explicit CPU-only torch.load pass."
-        )
-        return 0
-
     print()
-    print("Starting controlled CPU-only load in a child process...")
-    return load_in_child_process(model_path)
+    print("No pickle payload was executed.")
+    print("Use scripts/run_architecture_sandbox.py for hardened architecture loading.")
+    return 0
 
 
 if __name__ == "__main__":
