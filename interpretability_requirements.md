@@ -11,17 +11,19 @@
 
 ## Implementation Status
 
-Implemented in the artifact-safety milestone:
+Implemented:
 
 - Dependency/environment specification
 - Unit tests and generated fixtures
 - Model checksum and provenance reporting
+- Full architecture extraction
+- Last-layer weight analysis
+- Input preprocessing and callable-bytecode recovery
+- Hardened, no-inference model loading
 
 Not implemented:
 
-- Full architecture extraction
 - Activation capture or hooks
-- Last-layer weight analysis
 - Automated behavioral probing
 - Experiment datasets
 - Hypothesis/research logging

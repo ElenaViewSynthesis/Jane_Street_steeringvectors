@@ -2,7 +2,7 @@
 
 ## `model_3_11.pt`
 
-- Purpose: Jane Street puzzle model for Python 3.11 or newer
+- Purpose: Jane Street puzzle model containing Python 3.11 cloudpickled bytecode
 - Repository: `jane-street/2025-03-10`
 - Source: <https://huggingface.co/jane-street/2025-03-10/blob/main/model_3_11.pt>
 - Remote revision shown by Hugging Face: `2df04ba`
@@ -14,6 +14,10 @@
 The local digest was computed by streaming the complete file through SHA-256. The artifact was then
 opened as a ZIP archive and its pickle stream was parsed with `pickletools`; no pickle payload was
 executed.
+
+Architecture recovery was subsequently performed with Python 3.11.14 inside the repository's
+namespace and Landlock sandbox. Python 3.12 is not accepted for live analysis because the embedded
+Python 3.11 bytecode is not forward-compatible at the opcode level.
 
 The artifact itself is excluded from Git by the `model*.pt` ignore rule. Generated JSON inspection
 reports are also excluded because they contain machine-local paths; reproduce them with:

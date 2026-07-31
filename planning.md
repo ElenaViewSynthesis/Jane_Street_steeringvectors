@@ -18,7 +18,7 @@ The prompt text in the Space says:
 From the current `app.py` in the Space:
 
 - The repo ID is `jane-street/2025-03-10`
-- The loaded file is `model_3_11.pt` on Python 3.11 or newer, otherwise `model.pt`
+- The loaded file is `model_3_11.pt` for Python 3.11, otherwise `model.pt` for the older runtime
 - Inference is `model(text)`
 - The example input is `vegetable dog`
 
@@ -50,5 +50,5 @@ This means the practical objective for this project is to reverse engineer or ch
 ## Deliverables for this setup step
 
 - `planning.md`
-- local copy of `model_3_11.pt` for Python 3.11 or newer, or `model.pt` for older Python
+- local copy of `model_3_11.pt` for Python 3.11, or `model.pt` for the older runtime
 - basic provenance notes for where the file came from

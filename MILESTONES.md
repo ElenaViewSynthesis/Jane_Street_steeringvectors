@@ -11,19 +11,23 @@ Status: implemented
 - Stop before pickle execution when a trusted checksum does not match.
 - Test the static inspector with generated, non-executable PyTorch-style fixtures.
 
-The Python 3.11+ artifact is present locally. Its streamed local SHA-256 exactly matches the digest
+The Python 3.11 artifact is present locally. Its streamed local SHA-256 exactly matches the digest
 published by Hugging Face; see `ARTIFACTS.md`.
 
 ## 2. Architecture Recovery
 
-Status: metadata exporter implemented; pending model artifact and hardened execution environment
+Status: implemented
 
-- Identify the Python classes required to deserialize the model.
+- Identify the Python classes required to deserialize the model. (implemented)
 - Load the artifact inside a disposable environment with no network access and minimal
-  filesystem access.
+  filesystem access. (implemented with namespaces and Landlock)
 - Export the complete module tree, parameter and buffer shapes, and parameter counts. (implemented)
-- Identify the final two computational layers and extract their weights and biases.
-- Record input preprocessing and tokenization behavior.
+- Identify the final two computational layers and extract their weights and biases. (implemented)
+- Record input preprocessing and tokenization behavior. (implemented)
+
+The model is a 2,721-stage piecewise-linear circuit over 55 character code points. Its last two
+parameterized layers implement 16 equality predicates followed by an AND-like threshold. See
+`docs/architecture_findings.md`.
 
 ## 3. Behavioral Probing
 
