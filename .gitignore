@@ -4,4 +4,5 @@ __pycache__/
 *.pyc
 model*.pt
 outputs/reports/*.json
+outputs/probes/*.json
 outputs/extracted/

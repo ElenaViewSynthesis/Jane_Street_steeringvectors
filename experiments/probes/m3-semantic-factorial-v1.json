@@ -1,0 +1,2932 @@
+{
+  "schema_version": 1,
+  "suite_id": "m3-semantic-factorial-v1",
+  "description": "Complete ordered 15-by-15 word-pair factorial over animals, foods, colors, places, and verbs for lexical, positional, and interaction effects.",
+  "cases": [
+    {
+      "id": "pair-cat-cat",
+      "input": "cat cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-cat-dog",
+      "input": "cat dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-cat-fox",
+      "input": "cat fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-cat-apple",
+      "input": "cat apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-bread",
+      "input": "cat bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-carrot",
+      "input": "cat carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-blue",
+      "input": "cat blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-green",
+      "input": "cat green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-red",
+      "input": "cat red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-london",
+      "input": "cat london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-paris",
+      "input": "cat paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-rome",
+      "input": "cat rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-jump",
+      "input": "cat jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-run",
+      "input": "cat run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-cat-sleep",
+      "input": "cat sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "cat",
+        "left_category": "animal",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-cat",
+      "input": "dog cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-dog-dog",
+      "input": "dog dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-dog-fox",
+      "input": "dog fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-dog-apple",
+      "input": "dog apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-bread",
+      "input": "dog bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-carrot",
+      "input": "dog carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-blue",
+      "input": "dog blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-green",
+      "input": "dog green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-red",
+      "input": "dog red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-london",
+      "input": "dog london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-paris",
+      "input": "dog paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-rome",
+      "input": "dog rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-jump",
+      "input": "dog jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-run",
+      "input": "dog run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-dog-sleep",
+      "input": "dog sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "dog",
+        "left_category": "animal",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-cat",
+      "input": "fox cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-fox-dog",
+      "input": "fox dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-fox-fox",
+      "input": "fox fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-fox-apple",
+      "input": "fox apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-bread",
+      "input": "fox bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-carrot",
+      "input": "fox carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-blue",
+      "input": "fox blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-green",
+      "input": "fox green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-red",
+      "input": "fox red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-london",
+      "input": "fox london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-paris",
+      "input": "fox paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-rome",
+      "input": "fox rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-jump",
+      "input": "fox jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-run",
+      "input": "fox run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-fox-sleep",
+      "input": "fox sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "fox",
+        "left_category": "animal",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-cat",
+      "input": "apple cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-dog",
+      "input": "apple dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-fox",
+      "input": "apple fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-apple",
+      "input": "apple apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-apple-bread",
+      "input": "apple bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-apple-carrot",
+      "input": "apple carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-apple-blue",
+      "input": "apple blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-green",
+      "input": "apple green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-red",
+      "input": "apple red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-london",
+      "input": "apple london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-paris",
+      "input": "apple paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-rome",
+      "input": "apple rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-jump",
+      "input": "apple jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-run",
+      "input": "apple run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-apple-sleep",
+      "input": "apple sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "apple",
+        "left_category": "food",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-cat",
+      "input": "bread cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-dog",
+      "input": "bread dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-fox",
+      "input": "bread fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-apple",
+      "input": "bread apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-bread-bread",
+      "input": "bread bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-bread-carrot",
+      "input": "bread carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-bread-blue",
+      "input": "bread blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-green",
+      "input": "bread green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-red",
+      "input": "bread red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-london",
+      "input": "bread london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-paris",
+      "input": "bread paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-rome",
+      "input": "bread rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-jump",
+      "input": "bread jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-run",
+      "input": "bread run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-bread-sleep",
+      "input": "bread sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "bread",
+        "left_category": "food",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-cat",
+      "input": "carrot cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-dog",
+      "input": "carrot dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-fox",
+      "input": "carrot fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-apple",
+      "input": "carrot apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-carrot-bread",
+      "input": "carrot bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-carrot-carrot",
+      "input": "carrot carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-carrot-blue",
+      "input": "carrot blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-green",
+      "input": "carrot green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-red",
+      "input": "carrot red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-london",
+      "input": "carrot london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-paris",
+      "input": "carrot paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-rome",
+      "input": "carrot rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-jump",
+      "input": "carrot jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-run",
+      "input": "carrot run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-carrot-sleep",
+      "input": "carrot sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "carrot",
+        "left_category": "food",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-cat",
+      "input": "blue cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-dog",
+      "input": "blue dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-fox",
+      "input": "blue fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-apple",
+      "input": "blue apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-bread",
+      "input": "blue bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-carrot",
+      "input": "blue carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-blue",
+      "input": "blue blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-blue-green",
+      "input": "blue green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-blue-red",
+      "input": "blue red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-blue-london",
+      "input": "blue london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-paris",
+      "input": "blue paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-rome",
+      "input": "blue rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-jump",
+      "input": "blue jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-run",
+      "input": "blue run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-blue-sleep",
+      "input": "blue sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "blue",
+        "left_category": "color",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-cat",
+      "input": "green cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-dog",
+      "input": "green dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-fox",
+      "input": "green fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-apple",
+      "input": "green apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-bread",
+      "input": "green bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-carrot",
+      "input": "green carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-blue",
+      "input": "green blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-green-green",
+      "input": "green green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-green-red",
+      "input": "green red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-green-london",
+      "input": "green london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-paris",
+      "input": "green paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-rome",
+      "input": "green rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-jump",
+      "input": "green jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-run",
+      "input": "green run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-green-sleep",
+      "input": "green sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "green",
+        "left_category": "color",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-cat",
+      "input": "red cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-dog",
+      "input": "red dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-fox",
+      "input": "red fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-apple",
+      "input": "red apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-bread",
+      "input": "red bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-carrot",
+      "input": "red carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-blue",
+      "input": "red blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-red-green",
+      "input": "red green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-red-red",
+      "input": "red red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-red-london",
+      "input": "red london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-paris",
+      "input": "red paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-rome",
+      "input": "red rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-jump",
+      "input": "red jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-run",
+      "input": "red run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-red-sleep",
+      "input": "red sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "red",
+        "left_category": "color",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-cat",
+      "input": "london cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-dog",
+      "input": "london dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-fox",
+      "input": "london fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-apple",
+      "input": "london apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-bread",
+      "input": "london bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-carrot",
+      "input": "london carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-blue",
+      "input": "london blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-green",
+      "input": "london green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-red",
+      "input": "london red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-london",
+      "input": "london london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-london-paris",
+      "input": "london paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-london-rome",
+      "input": "london rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-london-jump",
+      "input": "london jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-run",
+      "input": "london run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-london-sleep",
+      "input": "london sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "london",
+        "left_category": "place",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-cat",
+      "input": "paris cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-dog",
+      "input": "paris dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-fox",
+      "input": "paris fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-apple",
+      "input": "paris apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-bread",
+      "input": "paris bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-carrot",
+      "input": "paris carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-blue",
+      "input": "paris blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-green",
+      "input": "paris green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-red",
+      "input": "paris red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-london",
+      "input": "paris london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-paris-paris",
+      "input": "paris paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-paris-rome",
+      "input": "paris rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-paris-jump",
+      "input": "paris jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-run",
+      "input": "paris run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-paris-sleep",
+      "input": "paris sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "paris",
+        "left_category": "place",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-cat",
+      "input": "rome cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-dog",
+      "input": "rome dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-fox",
+      "input": "rome fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-apple",
+      "input": "rome apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-bread",
+      "input": "rome bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-carrot",
+      "input": "rome carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-blue",
+      "input": "rome blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-green",
+      "input": "rome green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-red",
+      "input": "rome red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-london",
+      "input": "rome london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-rome-paris",
+      "input": "rome paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-rome-rome",
+      "input": "rome rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-rome-jump",
+      "input": "rome jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-run",
+      "input": "rome run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-rome-sleep",
+      "input": "rome sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "rome",
+        "left_category": "place",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-cat",
+      "input": "jump cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-dog",
+      "input": "jump dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-fox",
+      "input": "jump fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-apple",
+      "input": "jump apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-bread",
+      "input": "jump bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-carrot",
+      "input": "jump carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-blue",
+      "input": "jump blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-green",
+      "input": "jump green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-red",
+      "input": "jump red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-london",
+      "input": "jump london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-paris",
+      "input": "jump paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-rome",
+      "input": "jump rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-jump-jump",
+      "input": "jump jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-jump-run",
+      "input": "jump run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-jump-sleep",
+      "input": "jump sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "jump",
+        "left_category": "verb",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-run-cat",
+      "input": "run cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-dog",
+      "input": "run dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-fox",
+      "input": "run fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-apple",
+      "input": "run apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-bread",
+      "input": "run bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-carrot",
+      "input": "run carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-blue",
+      "input": "run blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-green",
+      "input": "run green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-red",
+      "input": "run red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-london",
+      "input": "run london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-paris",
+      "input": "run paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-rome",
+      "input": "run rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-run-jump",
+      "input": "run jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-run-run",
+      "input": "run run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": true,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-run-sleep",
+      "input": "run sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "run",
+        "left_category": "verb",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-sleep-cat",
+      "input": "sleep cat",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "cat",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-dog",
+      "input": "sleep dog",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "dog",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-fox",
+      "input": "sleep fox",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "fox",
+        "right_category": "animal",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-apple",
+      "input": "sleep apple",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "apple",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-bread",
+      "input": "sleep bread",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "bread",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-carrot",
+      "input": "sleep carrot",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "carrot",
+        "right_category": "food",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-blue",
+      "input": "sleep blue",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "blue",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-green",
+      "input": "sleep green",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "green",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-red",
+      "input": "sleep red",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "red",
+        "right_category": "color",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-london",
+      "input": "sleep london",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "london",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-paris",
+      "input": "sleep paris",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "paris",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-rome",
+      "input": "sleep rome",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "rome",
+        "right_category": "place",
+        "same_word": false,
+        "same_category": false
+      }
+    },
+    {
+      "id": "pair-sleep-jump",
+      "input": "sleep jump",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "jump",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-sleep-run",
+      "input": "sleep run",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "run",
+        "right_category": "verb",
+        "same_word": false,
+        "same_category": true
+      }
+    },
+    {
+      "id": "pair-sleep-sleep",
+      "input": "sleep sleep",
+      "family": "semantic_factorial",
+      "factors": {
+        "left_word": "sleep",
+        "left_category": "verb",
+        "right_word": "sleep",
+        "right_category": "verb",
+        "same_word": true,
+        "same_category": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "suite_id": "m3-smoke-v1",
+  "description": "Milestone 3 smoke suite covering deterministic baselines, input padding, the 55-character boundary, and controlled order, case, punctuation, repetition, and whitespace contrasts.",
+  "cases": [
+    {
+      "id": "baseline-empty",
+      "input": "",
+      "family": "baseline",
+      "factors": {
+        "variant": "empty"
+      }
+    },
+    {
+      "id": "baseline-single-a",
+      "input": "a",
+      "family": "baseline",
+      "factors": {
+        "variant": "single_character"
+      }
+    },
+    {
+      "id": "baseline-space",
+      "input": " ",
+      "family": "baseline",
+      "factors": {
+        "variant": "space"
+      }
+    },
+    {
+      "id": "baseline-puzzle-example",
+      "input": "vegetable dog",
+      "family": "baseline",
+      "factors": {
+        "variant": "documented_example"
+      }
+    },
+    {
+      "id": "padding-short-abc",
+      "input": "abc",
+      "family": "padding",
+      "factors": {
+        "variant": "implicit_nulls"
+      }
+    },
+    {
+      "id": "padding-explicit-abc",
+      "input": "abc\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+      "family": "padding",
+      "factors": {
+        "variant": "explicit_nulls"
+      }
+    },
+    {
+      "id": "length-a-54",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "family": "length",
+      "factors": {
+        "character": "a",
+        "length": 54
+      }
+    },
+    {
+      "id": "length-a-55",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "family": "length",
+      "factors": {
+        "character": "a",
+        "length": 55
+      }
+    },
+    {
+      "id": "length-a-56",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "family": "length",
+      "factors": {
+        "character": "a",
+        "length": 56
+      }
+    },
+    {
+      "id": "truncation-a55-exclamation",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!",
+      "family": "length",
+      "factors": {
+        "character": "a",
+        "length": 56,
+        "suffix": "exclamation"
+      }
+    },
+    {
+      "id": "truncation-a55-question",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?",
+      "family": "length",
+      "factors": {
+        "character": "a",
+        "length": 56,
+        "suffix": "question"
+      }
+    },
+    {
+      "id": "contrast-red-fox-original",
+      "input": "red fox",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "original",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-red-fox-reversed",
+      "input": "fox red",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "reversed",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-red-fox-uppercase",
+      "input": "RED FOX",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "uppercase",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-red-fox-titlecase",
+      "input": "Red Fox",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "titlecase",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-red-fox-punctuation",
+      "input": "red fox!",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "punctuation",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-red-fox-repeated",
+      "input": "red fox red fox",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "repeated",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-red-fox-double-space",
+      "input": "red  fox",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "red-fox",
+        "transform": "double-space",
+        "left_category": "color",
+        "right_category": "animal"
+      }
+    },
+    {
+      "id": "contrast-apple-run-original",
+      "input": "apple run",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "original",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-apple-run-reversed",
+      "input": "run apple",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "reversed",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-apple-run-uppercase",
+      "input": "APPLE RUN",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "uppercase",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-apple-run-titlecase",
+      "input": "Apple Run",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "titlecase",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-apple-run-punctuation",
+      "input": "apple run!",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "punctuation",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-apple-run-repeated",
+      "input": "apple run apple run",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "repeated",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-apple-run-double-space",
+      "input": "apple  run",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "apple-run",
+        "transform": "double-space",
+        "left_category": "food",
+        "right_category": "verb"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-original",
+      "input": "paris blue",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "original",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-reversed",
+      "input": "blue paris",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "reversed",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-uppercase",
+      "input": "PARIS BLUE",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "uppercase",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-titlecase",
+      "input": "Paris Blue",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "titlecase",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-punctuation",
+      "input": "paris blue!",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "punctuation",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-repeated",
+      "input": "paris blue paris blue",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "repeated",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    },
+    {
+      "id": "contrast-paris-blue-double-space",
+      "input": "paris  blue",
+      "family": "controlled_contrast",
+      "factors": {
+        "base_id": "paris-blue",
+        "transform": "double-space",
+        "left_category": "place",
+        "right_category": "color"
+      }
+    }
+  ]
+}
