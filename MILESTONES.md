@@ -50,13 +50,18 @@ positional, and interaction effects cannot be estimated from the final output al
 
 ## 4. Representation and Causal Analysis
 
-Status: pending
+Status: in progress
 
-- Capture intermediate activations with scoped hooks.
+- Capture intermediate activations with scoped hooks. (implemented for the final five modules)
 - Relate activation directions to changes in the scalar output.
-- Test whether the final readout is linear in the last hidden representation.
+- Test whether the final readout is linear in the last hidden representation. (verified exactly
+  for the readout preactivation; the published scalar includes a final ReLU)
 - Extract candidate semantic directions and validate them on held-out inputs.
 - Perform activation interventions to distinguish causal features from correlations.
+
+The first activation smoke run captured eight deterministic observations with zero reconstruction
+error. For all four tested ASCII inputs, the 16 decoded predicate bytes exactly match ordinary MD5
+of the unpadded input. See `docs/representation_and_causal_analysis.md`.
 
 ## 5. Reproducible Findings
 

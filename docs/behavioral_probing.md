@@ -128,3 +128,7 @@ Additional broad scalar probes are unlikely to be informative until a positive i
 Milestone 4 should capture the 192-dimensional representation entering the predicate layer and the
 48 predicate activations. Comparing the decoded intermediate bytes with candidate MD5 digests can
 directly test the hash hypothesis and reveal how many predicates each input satisfies.
+
+That follow-up has now begun. The first Milestone 4 activation suite found that the 16 decoded
+predicate values exactly equal ordinary MD5 for all four tested ASCII inputs. See
+`docs/representation_and_causal_analysis.md` for the scoped-hook protocol and current evidence.

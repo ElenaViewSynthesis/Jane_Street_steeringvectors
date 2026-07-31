@@ -22,10 +22,12 @@ Implemented:
 - Hardened, no-inference model loading
 - Automated behavioral probing
 - Versioned experiment datasets
+- Scoped final-layer activation capture
+- Exact affine/ReLU readout verification
+- Intermediate predicate decoding and MD5 comparison
 
 Not implemented:
 
-- Activation capture or hooks
 - Hypothesis/research logging
 - Steering-vector extraction or intervention
 - Reproducible notebook/report

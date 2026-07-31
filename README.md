@@ -23,6 +23,11 @@ factorial contrasts. This is consistent with a sparse exact-match circuit and me
 scalar alone cannot expose the underlying lexical or positional features. See
 `docs/behavioral_probing.md`.
 
+Milestone 4 now captures the final 192- and 48-dimensional representations with scoped hooks. Its
+first eight observations were bit-deterministic with zero affine/ReLU reconstruction error. For
+all four tested ASCII inputs, the 16 decoded predicate bytes exactly equal the ordinary MD5 digest
+of the unpadded input. See `docs/representation_and_causal_analysis.md`.
+
 The model file remains untrusted serialized input. Direct pickle loading is disabled; live
 architecture analysis is available only through the hash-gated namespace and Landlock launcher.
 
@@ -52,15 +57,23 @@ The current inspection script can:
 │   └── analysis-cpu.txt
 ├── docs/
 │   ├── architecture_findings.md
-│   └── behavioral_probing.md
+│   ├── behavioral_probing.md
+│   ├── glossary.md
+│   ├── observations.md
+│   └── representation_and_causal_analysis.md
 ├── examples/
 │   └── summarize_linear_shapes.py
 ├── experiments/
+│   ├── activations/
+│   │   └── m4-capture-smoke-v1.json
 │   └── probes/
 │       ├── m3-semantic-factorial-v1.json
 │       └── m3-smoke-v1.json
 ├── scripts/
 │   ├── architecture_worker.py
+│   ├── activation_schema.py
+│   ├── activation_worker.py
+│   ├── activation_sandbox_entry.sh
 │   ├── generate_probe_manifests.py
 │   ├── inspect_model.py
 │   ├── landlock_exec.py
@@ -68,16 +81,21 @@ The current inspection script can:
 │   ├── probe_schema.py
 │   ├── probe_worker.py
 │   ├── run_architecture_sandbox.py
+│   ├── run_activation_sandbox.py
 │   ├── run_probe_sandbox.py
 │   └── sandbox_entry.sh
 ├── src/
 │   └── jsmi/
 │       └── __init__.py
 ├── outputs/
+│   ├── activations/
 │   ├── probes/
 │   └── reports/
 └── tests/
     ├── fixtures.py
+    ├── test_activation_sandbox.py
+    ├── test_activation_schema.py
+    ├── test_activation_worker.py
     ├── test_architecture_sandbox.py
     ├── test_inspect_model.py
     ├── test_landlock_exec.py
@@ -200,6 +218,28 @@ input, scalar output, experimental factor, model hash, manifest hash, and runtim
 reports are ignored by Git; the committed manifests and aggregate findings are documented in
 `docs/behavioral_probing.md`.
 
+## Running Final-Layer Activation Capture
+
+The activation runner retains the probe runner's hash, runtime, namespace, Landlock, capability,
+resource, and report-publication controls. It structurally verifies the final circuit before
+installing scoped hooks, captures the final five module outputs, and removes every hook before
+writing its report.
+
+On WSL, place the Python environment on the native Linux filesystem rather than under `/mnt/c`,
+then pass it explicitly with `--venv`:
+
+```bash
+python3 scripts/run_activation_sandbox.py \
+  --venv /path/to/python-3.11-analysis-venv \
+  --manifest experiments/activations/m4-capture-smoke-v1.json \
+  --report outputs/activations/m4-capture-smoke-v1.json \
+  --repetitions 2
+```
+
+The versioned report stores `h192`, predicate preactivations, predicate ReLU activations, readout
+preactivation, and final output. It also records individual predicate matches, decoded bytes, MD5
+comparisons, tensor digests, and exact affine/ReLU verification errors.
+
 ## Tests
 
 The tests generate a tiny, non-executable PyTorch-shaped ZIP archive and do not require the real
@@ -220,12 +260,14 @@ Completed:
 - Recover the full architecture, input encoding lambda, and last-layer predicate circuit.
 - Implement deterministic, hash-bound behavioral probing inside the hardened sandbox.
 - Run controlled transformation and balanced semantic-factorial suites over 257 inputs.
+- Implement deterministic, hash-bound final-layer activation capture.
+- Verify that the decoded predicate values equal ordinary MD5 for the activation smoke inputs.
 
 Next:
 
-- Capture the 192-dimensional representation entering the final predicate circuit.
-- Compare decoded intermediate bytes against candidate MD5 computations.
-- Measure individual predicate matches instead of relying on the all-or-nothing scalar output.
+- Test non-ASCII and boundary inputs to determine the exact MD5 byte encoding.
+- Extract and validate candidate semantic directions on lexeme-held-out inputs.
+- Add causal activation interventions at the 192-dimensional representation.
 - Document hypotheses and rejected explanations in a research log.
 - Add a reproducible notebook or script for summarizing findings once the model behavior is understood.
 
