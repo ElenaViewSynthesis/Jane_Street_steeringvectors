@@ -93,15 +93,13 @@ class ArchiveSummaryTests(unittest.TestCase):
             ]
             with (
                 mock.patch.object(sys, "argv", arguments),
-                mock.patch("scripts.inspect_model.load_in_child_process") as loader,
                 mock.patch("builtins.print"),
             ):
                 return_code = main()
 
         self.assertEqual(return_code, 2)
-        loader.assert_not_called()
 
-    def test_pickle_load_requires_trusted_checksum(self) -> None:
+    def test_direct_pickle_load_is_disabled(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             model_path = write_tiny_torch_archive(Path(directory) / "model.pt")
             arguments = [
@@ -112,13 +110,11 @@ class ArchiveSummaryTests(unittest.TestCase):
             ]
             with (
                 mock.patch.object(sys, "argv", arguments),
-                mock.patch("scripts.inspect_model.load_in_child_process") as loader,
                 mock.patch("builtins.print"),
             ):
                 return_code = main()
 
         self.assertEqual(return_code, 2)
-        loader.assert_not_called()
 
 
 class ArgumentValidationTests(unittest.TestCase):
