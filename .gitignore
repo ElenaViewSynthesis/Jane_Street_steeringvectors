@@ -1,8 +1,10 @@
 .venv/
+.venv-py311/
 .tmp/
 __pycache__/
 *.pyc
 model*.pt
 outputs/reports/*.json
 outputs/probes/*.json
+outputs/activations/*.json
 outputs/extracted/
