@@ -9,11 +9,16 @@
 - What features or semantic directions do the last layers measure?
 - Does changing word order, case, punctuation, repetition, or semantic category predictably change the output?
 
-## Not Implemented
+## Implementation Status
+
+Implemented in the artifact-safety milestone:
 
 - Dependency/environment specification
-- Unit tests or fixtures
+- Unit tests and generated fixtures
 - Model checksum and provenance reporting
+
+Not implemented:
+
 - Full architecture extraction
 - Activation capture or hooks
 - Last-layer weight analysis

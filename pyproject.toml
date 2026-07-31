@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=69,<82"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jsmi"
+version = "0.1.0"
+description = "Safety-first tools for the Jane Street mechanistic interpretability puzzle"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+analysis = ["torch==2.7.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

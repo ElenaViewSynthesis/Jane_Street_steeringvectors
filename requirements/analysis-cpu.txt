@@ -1,0 +1,4 @@
+--index-url https://download.pytorch.org/whl/cpu
+
+# Pinned CPU build for the explicitly opted-in live analysis phase.
+torch==2.7.1

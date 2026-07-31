@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import pickletools
@@ -13,8 +14,57 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL = ROOT / "model.pt"
+DEFAULT_MODEL_FILENAME = "model_3_11.pt" if sys.version_info >= (3, 11) else "model.pt"
+DEFAULT_MODEL = ROOT / DEFAULT_MODEL_FILENAME
 DEFAULT_REPORT = ROOT / "outputs" / "reports" / "archive_metadata.json"
+DEFAULT_SOURCE_URL = (
+    f"https://huggingface.co/jane-street/2025-03-10/resolve/main/{DEFAULT_MODEL_FILENAME}"
+)
+KNOWN_MODEL_SHA256 = {
+    "model_3_11.pt": "43aa7da7ccf749ae1fb95f8b7a6aa49536b73e27f0ac74cb90d5f824ccd484b2",
+}
+HASH_CHUNK_SIZE = 8 * 1024 * 1024
+
+
+def sha256_file(path: Path, chunk_size: int = HASH_CHUNK_SIZE) -> str:
+    """Return a streamed SHA-256 digest without loading the artifact into memory."""
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        while chunk := handle.read(chunk_size):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def summarize_artifact(
+    model_path: Path,
+    source_url: str | None = None,
+    expected_sha256: str | None = None,
+) -> dict[str, Any]:
+    actual_sha256 = sha256_file(model_path)
+    normalized_expected = expected_sha256.lower() if expected_sha256 else None
+    return {
+        "filename": model_path.name,
+        "path": str(model_path),
+        "size_bytes": model_path.stat().st_size,
+        "sha256": actual_sha256,
+        "expected_sha256": normalized_expected,
+        "checksum_matches_expected": (
+            actual_sha256 == normalized_expected if normalized_expected else None
+        ),
+        "source_url": source_url,
+    }
+
+
+def sha256_argument(value: str) -> str:
+    normalized = value.strip().lower()
+    if not re.fullmatch(r"[0-9a-f]{64}", normalized):
+        raise argparse.ArgumentTypeError("SHA-256 must contain exactly 64 hexadecimal characters.")
+    return normalized
+
+
+def trusted_sha256_for(model_path: Path, supplied_digest: str | None = None) -> str | None:
+    """Prefer an explicit digest, otherwise use a known official artifact digest."""
+    return supplied_digest or KNOWN_MODEL_SHA256.get(model_path.name)
 
 
 def read_text_file(zf: zipfile.ZipFile, name: str) -> str | None:
@@ -308,7 +358,16 @@ def summarize_pickle_globals(
     }
 
 
-def summarize_archive(model_path: Path) -> dict[str, Any]:
+def summarize_archive(
+    model_path: Path,
+    source_url: str | None = None,
+    expected_sha256: str | None = None,
+) -> dict[str, Any]:
+    artifact = summarize_artifact(
+        model_path,
+        source_url=source_url,
+        expected_sha256=expected_sha256,
+    )
     with zipfile.ZipFile(model_path) as zf:
         names = zf.namelist()
         if not names:
@@ -329,6 +388,7 @@ def summarize_archive(model_path: Path) -> dict[str, Any]:
 
         summary: dict[str, Any] = {
             "model_path": str(model_path),
+            "artifact": artifact,
             "archive_format": "zip",
             "root_prefix": root_prefix,
             "entry_count": len(names),
@@ -354,8 +414,18 @@ def summarize_archive(model_path: Path) -> dict[str, Any]:
 
 
 def print_archive_summary(summary: dict[str, Any]) -> None:
+    artifact = summary["artifact"]
     print("Archive metadata")
     print(f"- model path: {summary['model_path']}")
+    print(f"- size: {artifact['size_bytes']} bytes")
+    print(f"- SHA-256: {artifact['sha256']}")
+    if artifact.get("source_url"):
+        print(f"- source: {artifact['source_url']}")
+    if artifact.get("expected_sha256"):
+        print(
+            f"- expected SHA-256 matches: "
+            f"{artifact['checksum_matches_expected']}"
+        )
     print(f"- archive format: {summary['archive_format']}")
     print(f"- root prefix: {summary['root_prefix']}")
     print(f"- total entries: {summary['entry_count']}")
@@ -410,6 +480,37 @@ def print_archive_summary(summary: dict[str, Any]) -> None:
         print(f"  - {item['name']} ({item['size_bytes']} bytes)")
 
 
+def tensor_metadata(name: str, tensor: Any) -> dict[str, Any]:
+    metadata = {
+        "name": name,
+        "shape": list(tensor.shape),
+        "dtype": str(tensor.dtype),
+        "numel": tensor.numel(),
+    }
+    if hasattr(tensor, "requires_grad"):
+        metadata["requires_grad"] = bool(tensor.requires_grad)
+    return metadata
+
+
+def module_metadata(name: str, module: Any) -> dict[str, Any]:
+    direct_parameters = list(module.named_parameters(recurse=False))
+    direct_buffers = list(module.named_buffers(recurse=False))
+    return {
+        "name": name or "<root>",
+        "type": f"{type(module).__module__}.{type(module).__qualname__}",
+        "direct_parameter_count": sum(tensor.numel() for _name, tensor in direct_parameters),
+        "direct_buffer_count": sum(tensor.numel() for _name, tensor in direct_buffers),
+        "direct_parameters": [
+            tensor_metadata(parameter_name, tensor)
+            for parameter_name, tensor in direct_parameters
+        ],
+        "direct_buffers": [
+            tensor_metadata(buffer_name, tensor)
+            for buffer_name, tensor in direct_buffers
+        ],
+    }
+
+
 def summarize_loaded_object(obj: Any) -> dict[str, Any]:
     summary: dict[str, Any] = {
         "python_type": f"{type(obj).__module__}.{type(obj).__qualname__}",
@@ -423,7 +524,13 @@ def summarize_loaded_object(obj: Any) -> dict[str, Any]:
 
     if isinstance(obj, nn.Module):
         children = list(obj.named_children())
-        modules = [(name, mod) for name, mod in obj.named_modules() if name]
+        modules = list(obj.named_modules())
+        named_modules = [(name, mod) for name, mod in modules if name]
+        leaf_modules = [
+            (name, mod)
+            for name, mod in modules
+            if not any(mod.children())
+        ]
         params = list(obj.named_parameters())
         buffers = list(obj.named_buffers())
 
@@ -433,21 +540,33 @@ def summarize_loaded_object(obj: Any) -> dict[str, Any]:
                 "module_class": obj.__class__.__name__,
                 "training": bool(obj.training),
                 "top_level_children": [name for name, _child in children],
+                "module_tree": [
+                    module_metadata(name, mod)
+                    for name, mod in modules
+                ],
                 "last_two_named_modules": [
                     {"name": name, "type": mod.__class__.__name__}
-                    for name, mod in modules[-2:]
+                    for name, mod in named_modules[-2:]
+                ],
+                "final_two_leaf_modules": [
+                    module_metadata(name, mod)
+                    for name, mod in leaf_modules[-2:]
                 ],
                 "parameter_count": sum(param.numel() for _name, param in params),
                 "buffer_count": sum(buf.numel() for _name, buf in buffers),
+                "parameters": [
+                    tensor_metadata(name, param)
+                    for name, param in params
+                ],
+                "buffers": [
+                    tensor_metadata(name, buffer)
+                    for name, buffer in buffers
+                ],
                 "last_parameter_tensors": [
-                    {
-                        "name": name,
-                        "shape": list(param.shape),
-                        "dtype": str(param.dtype),
-                    }
+                    tensor_metadata(name, param)
                     for name, param in params[-6:]
                 ],
-                "state_dict_key_sample": list(obj.state_dict().keys())[:20],
+                "state_dict_keys": list(obj.state_dict().keys()),
             }
         )
         return summary
@@ -523,12 +642,34 @@ def parse_args() -> argparse.Namespace:
             "without unpickling the model."
         )
     )
-    parser.add_argument("--model", type=Path, default=DEFAULT_MODEL, help="Path to the model.pt file.")
+    parser.add_argument(
+        "--model",
+        type=Path,
+        default=DEFAULT_MODEL,
+        help=f"Path to the model artifact. Default for this interpreter: {DEFAULT_MODEL.name}.",
+    )
     parser.add_argument(
         "--report",
         type=Path,
         default=None,
         help="Optional path to write the archive metadata JSON report.",
+    )
+    parser.add_argument(
+        "--source-url",
+        default=DEFAULT_SOURCE_URL,
+        help=(
+            "Artifact source recorded in the report. Defaults to the Jane Street "
+            "Hugging Face model URL."
+        ),
+    )
+    parser.add_argument(
+        "--expected-sha256",
+        type=sha256_argument,
+        default=None,
+        help=(
+            "Trusted SHA-256 override. Known official artifacts are verified automatically. "
+            "A mismatch stops before any pickle execution."
+        ),
     )
     parser.add_argument(
         "--load-pickle",
@@ -549,6 +690,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     model_path = args.model.resolve()
+    expected_sha256 = trusted_sha256_for(model_path, args.expected_sha256)
 
     if not model_path.exists():
         print(f"Model file not found: {model_path}", file=sys.stderr)
@@ -566,7 +708,11 @@ def main() -> int:
         return 0
 
     try:
-        summary = summarize_archive(model_path)
+        summary = summarize_archive(
+            model_path,
+            source_url=args.source_url,
+            expected_sha256=expected_sha256,
+        )
     except zipfile.BadZipFile as exc:
         print(f"Archive inspection failed: {exc}", file=sys.stderr)
         return 1
@@ -577,6 +723,18 @@ def main() -> int:
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(f"- wrote report: {args.report}")
+
+    if summary["artifact"]["checksum_matches_expected"] is False:
+        print("Artifact SHA-256 does not match the trusted checksum.", file=sys.stderr)
+        return 2
+
+    if args.load_pickle and not expected_sha256:
+        print(
+            "--load-pickle requires a known artifact or an independently trusted "
+            "--expected-sha256 value.",
+            file=sys.stderr,
+        )
+        return 2
 
     if not args.load_pickle:
         print()

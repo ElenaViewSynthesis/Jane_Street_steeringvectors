@@ -2,6 +2,6 @@
 .tmp/
 __pycache__/
 *.pyc
-model.pt
+model*.pt
 outputs/reports/*.json
 outputs/extracted/

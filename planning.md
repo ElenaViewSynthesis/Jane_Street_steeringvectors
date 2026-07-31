@@ -18,15 +18,15 @@ The prompt text in the Space says:
 From the current `app.py` in the Space:
 
 - The repo ID is `jane-street/2025-03-10`
-- The loaded file is `model.pt`
+- The loaded file is `model_3_11.pt` on Python 3.11 or newer, otherwise `model.pt`
 - Inference is `model(text)`
 - The example input is `vegetable dog`
 
-This means the practical objective for this project is to reverse engineer or characterize what `model.pt` computes from text input, likely by inspecting architecture, weights, and behavior on carefully chosen prompts.
+This means the practical objective for this project is to reverse engineer or characterize what the version-appropriate model artifact computes from text input, likely by inspecting architecture, weights, and behavior on carefully chosen prompts.
 
 ## Immediate project goals
 
-1. Download `model.pt` locally without executing it implicitly in unknown code paths.
+1. Download the version-appropriate model artifact locally without executing it implicitly in unknown code paths.
 2. Inspect the file safely and record metadata such as size, hash, and loading requirements.
 3. Build a controlled analysis script that can load the model in an isolated environment.
 4. Investigate the model architecture, especially the last two layers as hinted by the puzzle.
@@ -42,7 +42,7 @@ This means the practical objective for this project is to reverse engineer or ch
 
 ## Safety notes
 
-- The Hugging Face repo marks `model.pt` as a pickle-based artifact.
+- The Hugging Face repo marks the model files as pickle-based artifacts.
 - Treat the file as untrusted serialized code/data.
 - Do not load it outside a controlled Python environment.
 - Keep any exploratory loader scripts minimal and auditable.
@@ -50,5 +50,5 @@ This means the practical objective for this project is to reverse engineer or ch
 ## Deliverables for this setup step
 
 - `planning.md`
-- local copy of `model.pt`
+- local copy of `model_3_11.pt` for Python 3.11 or newer, or `model.pt` for older Python
 - basic provenance notes for where the file came from
