@@ -20,12 +20,12 @@ Implemented:
 - Last-layer weight analysis
 - Input preprocessing and callable-bytecode recovery
 - Hardened, no-inference model loading
+- Automated behavioral probing
+- Versioned experiment datasets
 
 Not implemented:
 
 - Activation capture or hooks
-- Automated behavioral probing
-- Experiment datasets
 - Hypothesis/research logging
 - Steering-vector extraction or intervention
 - Reproducible notebook/report

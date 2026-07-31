@@ -17,6 +17,12 @@ float32 vector without a tokenizer or learned input embedding. The final circuit
 integer predicates and returns a positive result only when all 16 hold. See
 `docs/architecture_findings.md` for the recovered equations and evidence.
 
+Milestone 3 ran 257 controlled inputs twice each. The 514 observations were deterministic and all
+returned zero, including order, case, punctuation, repetition, length, and balanced semantic
+factorial contrasts. This is consistent with a sparse exact-match circuit and means the final
+scalar alone cannot expose the underlying lexical or positional features. See
+`docs/behavioral_probing.md`.
+
 The model file remains untrusted serialized input. Direct pickle loading is disabled; live
 architecture analysis is available only through the hash-gated namespace and Landlock launcher.
 
@@ -45,25 +51,39 @@ The current inspection script can:
 ├── requirements/
 │   └── analysis-cpu.txt
 ├── docs/
-│   └── architecture_findings.md
+│   ├── architecture_findings.md
+│   └── behavioral_probing.md
 ├── examples/
 │   └── summarize_linear_shapes.py
+├── experiments/
+│   └── probes/
+│       ├── m3-semantic-factorial-v1.json
+│       └── m3-smoke-v1.json
 ├── scripts/
 │   ├── architecture_worker.py
+│   ├── generate_probe_manifests.py
 │   ├── inspect_model.py
 │   ├── landlock_exec.py
+│   ├── probe_sandbox_entry.sh
+│   ├── probe_schema.py
+│   ├── probe_worker.py
 │   ├── run_architecture_sandbox.py
+│   ├── run_probe_sandbox.py
 │   └── sandbox_entry.sh
 ├── src/
 │   └── jsmi/
 │       └── __init__.py
 ├── outputs/
+│   ├── probes/
 │   └── reports/
 └── tests/
     ├── fixtures.py
     ├── test_architecture_sandbox.py
     ├── test_inspect_model.py
-    └── test_landlock_exec.py
+    ├── test_landlock_exec.py
+    ├── test_probe_sandbox.py
+    ├── test_probe_schema.py
+    └── test_probe_worker.py
 ```
 
 All `model*.pt` artifacts are intentionally ignored by Git because they are large local files.
@@ -145,6 +165,41 @@ To inspect a report at a different location:
 python3 examples/summarize_linear_shapes.py --report path/to/architecture_report.json
 ```
 
+## Running Deterministic Behavioral Probes
+
+Probe manifests are ordinary JSON and can be regenerated without loading the model:
+
+```bash
+python3 scripts/generate_probe_manifests.py
+```
+
+The probe runner performs real model inference, so it retains the hash, runtime, namespace,
+Landlock, capability, and resource controls of architecture recovery. Run the smoke suite with an
+exact Python 3.11 environment:
+
+```bash
+python3 scripts/run_probe_sandbox.py \
+  --venv /path/to/python-3.11-venv \
+  --manifest experiments/probes/m3-smoke-v1.json \
+  --report outputs/probes/m3-smoke-v1.json \
+  --repetitions 2
+```
+
+Run the complete semantic factorial by changing the manifest and report paths:
+
+```bash
+python3 scripts/run_probe_sandbox.py \
+  --venv /path/to/python-3.11-venv \
+  --manifest experiments/probes/m3-semantic-factorial-v1.json \
+  --report outputs/probes/m3-semantic-factorial-v1.json \
+  --repetitions 2
+```
+
+The worker loads the model once, executes two complete deterministic passes, and stores every exact
+input, scalar output, experimental factor, model hash, manifest hash, and runtime field. Generated
+reports are ignored by Git; the committed manifests and aggregate findings are documented in
+`docs/behavioral_probing.md`.
+
 ## Tests
 
 The tests generate a tiny, non-executable PyTorch-shaped ZIP archive and do not require the real
@@ -163,13 +218,14 @@ Completed:
 - Add tests for persistent IDs, `STACK_GLOBAL`, archive metadata, and checksum behavior.
 - Implement and validate the hardened architecture-recovery boundary.
 - Recover the full architecture, input encoding lambda, and last-layer predicate circuit.
+- Implement deterministic, hash-bound behavioral probing inside the hardened sandbox.
+- Run controlled transformation and balanced semantic-factorial suites over 257 inputs.
 
 Next:
 
-- Add a probing script that sends simple text inputs to the model and records outputs.
-- Design experiments for word order, capitalization, punctuation, repeated words, single words, and word pairs.
-- Compare outputs across semantic categories such as animals, foods, colors, places, and verbs.
-- Determine whether the model is using embeddings, handcrafted token features, a lookup table, or a learned scoring function.
+- Capture the 192-dimensional representation entering the final predicate circuit.
+- Compare decoded intermediate bytes against candidate MD5 computations.
+- Measure individual predicate matches instead of relying on the all-or-nothing scalar output.
 - Document hypotheses and rejected explanations in a research log.
 - Add a reproducible notebook or script for summarizing findings once the model behavior is understood.
 

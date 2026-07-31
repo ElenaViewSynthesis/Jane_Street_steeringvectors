@@ -31,12 +31,22 @@ parameterized layers implement 16 equality predicates followed by an AND-like th
 
 ## 3. Behavioral Probing
 
-Status: pending
+Status: implemented
 
 - Build a deterministic probe runner that stores inputs, outputs, model hash, and run metadata.
+  (implemented with a hash-bound manifest and validated report schema)
 - Test controlled contrasts for order, capitalization, punctuation, repetition, and length.
+  (implemented with the 32-case smoke suite)
 - Compare semantic categories such as animals, foods, colors, places, and verbs.
+  (implemented with a balanced 15-word vocabulary)
 - Use factorial experiments to separate lexical, positional, and interaction effects.
+  (implemented as a complete ordered 15-by-15 word-pair design)
+
+Both suites were executed twice per input inside the namespace and Landlock sandbox. All 514
+observations were deterministic zeros: 64 observations from the smoke suite and 450 from the
+semantic factorial. Because the scalar output has no variance over these probes, lexical,
+positional, and interaction effects cannot be estimated from the final output alone. See
+`docs/behavioral_probing.md`.
 
 ## 4. Representation and Causal Analysis
 
