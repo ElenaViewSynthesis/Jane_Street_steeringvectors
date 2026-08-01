@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "suite_id": "m4-md5-boundary-v1",
+  "description": "Milestone 4 boundary suite for determining the exact text-to-byte encoding represented by the recovered MD5 circuit.",
+  "cases": [
+    {
+      "id": "length-a-54",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "family": "length_boundary",
+      "factors": {"character": "a", "length": 54}
+    },
+    {
+      "id": "length-a-55",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "family": "length_boundary",
+      "factors": {"character": "a", "length": 55}
+    },
+    {
+      "id": "length-a-56",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "family": "length_boundary",
+      "factors": {"character": "a", "length": 56}
+    },
+    {
+      "id": "embedded-null",
+      "input": "abc\u0000def",
+      "family": "null_character",
+      "factors": {"placement": "embedded"}
+    },
+    {
+      "id": "trailing-null",
+      "input": "abc\u0000",
+      "family": "null_character",
+      "factors": {"placement": "trailing"}
+    },
+    {
+      "id": "latin1-e-acute",
+      "input": "caf\u00e9",
+      "family": "unicode_encoding",
+      "factors": {"encoding_class": "latin1", "form": "precomposed"}
+    },
+    {
+      "id": "normalized-e-acute",
+      "input": "cafe\u0301",
+      "family": "unicode_encoding",
+      "factors": {"encoding_class": "combining", "form": "decomposed"}
+    },
+    {
+      "id": "bmp-han",
+      "input": "\u6f22",
+      "family": "unicode_encoding",
+      "factors": {"encoding_class": "bmp", "codepoint_range": "above_byte"}
+    },
+    {
+      "id": "emoji-grinning",
+      "input": "\ud83d\ude00",
+      "family": "unicode_encoding",
+      "factors": {"encoding_class": "non_bmp", "codepoint_range": "above_byte"}
+    },
+    {
+      "id": "latin1-ff",
+      "input": "\u00ff",
+      "family": "unicode_encoding",
+      "factors": {"encoding_class": "latin1", "codepoint": 255}
+    }
+  ]
+}

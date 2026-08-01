@@ -163,7 +163,7 @@ class ActivationDerivationTests(unittest.TestCase):
 
         self.assertTrue(candidates["decoded_matches_utf8"])
         self.assertTrue(candidates["decoded_matches_truncated_utf8"])
-        self.assertFalse(candidates["decoded_matches_model_bytes"])
+        self.assertFalse(candidates["decoded_matches_padded_codepoint_bytes"])
 
 
 class ActivationReportValidationTests(unittest.TestCase):
@@ -220,6 +220,16 @@ class ActivationReportValidationTests(unittest.TestCase):
 
         self.assertEqual(manifest["suite_id"], "m4-capture-smoke-v1")
         self.assertEqual(len(manifest["cases"]), 4)
+        self.assertEqual(len(digest), 64)
+
+    def test_committed_boundary_manifest_is_valid(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        manifest, _payload, digest = load_probe_manifest(
+            root / "experiments" / "activations" / "m4-md5-boundary-v1.json"
+        )
+
+        self.assertEqual(manifest["suite_id"], "m4-md5-boundary-v1")
+        self.assertEqual(len(manifest["cases"]), 10)
         self.assertEqual(len(digest), 64)
 
 

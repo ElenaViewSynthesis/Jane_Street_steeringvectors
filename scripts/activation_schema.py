@@ -14,7 +14,10 @@ except ModuleNotFoundError:  # Direct execution from scripts/.
 REPORT_SCHEMA_VERSION = 1
 SANDBOX_PROFILE = "linux-userns-landlock-activation-v1"
 CAPTURE_PROFILE = "final-predicate-activations-v1"
-AFFINE_ERROR_TOLERANCE = 1e-5
+# Bit-valued native h192 states reconstruct exactly at float32 precision.  Additive
+# steering directions introduce ordinary float32 accumulation error across eight
+# weighted bit positions, so keep a conservative numerical (not semantic) bound.
+AFFINE_ERROR_TOLERANCE = 1e-4
 
 PREDICATE_TARGETS = [
     199.0,
@@ -144,24 +147,44 @@ def decoded_predicate_hex(predicate_values: list[float]) -> str | None:
     return bytes(decoded).hex()
 
 
+def _codepoint_bytes(text: str) -> bytes | None:
+    code_points = [ord(character) for character in text]
+    if not all(0 <= value <= 255 for value in code_points):
+        return None
+    return bytes(code_points)
+
+
+def _candidate_digest(payload: bytes | None) -> str | None:
+    return _md5_hex(payload) if payload is not None else None
+
+
 def digest_candidates(input_text: str, predicate_values: list[float]) -> dict[str, Any]:
     decoded = decoded_predicate_hex(predicate_values)
-    utf8_digest = _md5_hex(input_text.encode("utf-8"))
-    truncated_utf8_digest = _md5_hex(input_text[:55].encode("utf-8"))
-    code_points = [ord(character) for character in input_text[:55].ljust(55, "\x00")]
-    model_bytes_digest = (
-        _md5_hex(bytes(code_points)) if all(0 <= value <= 255 for value in code_points) else None
-    )
+    truncated = input_text[:55]
+    candidates = {
+        "md5_utf8_hex": _md5_hex(input_text.encode("utf-8")),
+        "md5_truncated_utf8_hex": _md5_hex(truncated.encode("utf-8")),
+        "md5_latin1_hex": _candidate_digest(
+            input_text.encode("latin-1") if all(ord(character) <= 255 for character in input_text) else None
+        ),
+        "md5_truncated_latin1_hex": _candidate_digest(
+            truncated.encode("latin-1") if all(ord(character) <= 255 for character in truncated) else None
+        ),
+        "md5_codepoint_bytes_hex": _candidate_digest(_codepoint_bytes(input_text)),
+        "md5_truncated_codepoint_bytes_hex": _candidate_digest(_codepoint_bytes(truncated)),
+        "md5_padded_codepoint_bytes_hex": _candidate_digest(
+            _codepoint_bytes(truncated.ljust(55, "\x00"))
+        ),
+    }
     return {
         "decoded_predicate_hex": decoded,
-        "md5_utf8_hex": utf8_digest,
-        "md5_truncated_utf8_hex": truncated_utf8_digest,
-        "md5_model_bytes_hex": model_bytes_digest,
-        "decoded_matches_utf8": decoded == utf8_digest,
-        "decoded_matches_truncated_utf8": decoded == truncated_utf8_digest,
-        "decoded_matches_model_bytes": (
-            model_bytes_digest is not None and decoded == model_bytes_digest
-        ),
+        **candidates,
+        **{
+            f"decoded_matches_{name.removeprefix('md5_').removesuffix('_hex')}": (
+                value is not None and decoded == value
+            )
+            for name, value in candidates.items()
+        },
     }
 
 
@@ -228,9 +251,7 @@ def summarize_activation_results(results: list[dict[str, Any]]) -> dict[str, Any
     observation_count = 0
     deterministic_case_count = 0
     match_histogram: dict[int, int] = {}
-    utf8_digest_match_count = 0
-    model_bytes_digest_match_count = 0
-    truncated_utf8_digest_match_count = 0
+    candidate_match_counts: dict[str, int] = {}
     for result in results:
         observations = result["observations"]
         observation_count += len(observations)
@@ -240,13 +261,9 @@ def summarize_activation_results(results: list[dict[str, Any]]) -> dict[str, Any
             matched = derived["matched_predicate_count"]
             match_histogram[matched] = match_histogram.get(matched, 0) + 1
             digests = derived["digest_candidates"]
-            utf8_digest_match_count += int(digests["decoded_matches_utf8"])
-            truncated_utf8_digest_match_count += int(
-                digests["decoded_matches_truncated_utf8"]
-            )
-            model_bytes_digest_match_count += int(
-                digests["decoded_matches_model_bytes"]
-            )
+            for key, value in digests.items():
+                if key.startswith("decoded_matches_"):
+                    candidate_match_counts[key] = candidate_match_counts.get(key, 0) + int(value)
     return {
         "case_count": len(results),
         "observation_count": observation_count,
@@ -256,9 +273,7 @@ def summarize_activation_results(results: list[dict[str, Any]]) -> dict[str, Any
             {"matched_predicate_count": count, "observation_count": occurrences}
             for count, occurrences in sorted(match_histogram.items())
         ],
-        "decoded_matches_utf8_md5_count": utf8_digest_match_count,
-        "decoded_matches_truncated_utf8_md5_count": truncated_utf8_digest_match_count,
-        "decoded_matches_model_bytes_md5_count": model_bytes_digest_match_count,
+        "candidate_match_counts": dict(sorted(candidate_match_counts.items())),
     }
 
 
