@@ -149,8 +149,14 @@ def resolve_final_circuit_modules(model: Any, torch: Any) -> FinalCircuitModules
 
 
 class ScopedActivationHooks(AbstractContextManager["ScopedActivationHooks"]):
-    def __init__(self, modules: FinalCircuitModules) -> None:
+    def __init__(
+        self,
+        modules: FinalCircuitModules,
+        *,
+        h192_transform: Any | None = None,
+    ) -> None:
         self._modules = modules
+        self._h192_transform = h192_transform
         self._handles: list[Any] = []
         self._current: dict[str, Any] = {}
         self.hooks_removed = False
@@ -168,6 +174,10 @@ class ScopedActivationHooks(AbstractContextManager["ScopedActivationHooks"]):
     def __enter__(self) -> "ScopedActivationHooks":
         if self._handles:
             raise ActivationExecutionError("Activation hooks are already registered.")
+        if self._h192_transform is not None:
+            self._handles.append(
+                self._modules.h_relu.register_forward_hook(self._h192_transform)
+            )
         for role, module in self._modules.by_role().items():
             self._handles.append(module.register_forward_hook(self._capture(role)))
         self.hooks_removed = False

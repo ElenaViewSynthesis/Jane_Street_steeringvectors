@@ -7,4 +7,5 @@ model*.pt
 outputs/reports/*.json
 outputs/probes/*.json
 outputs/activations/*.json
+outputs/interventions/*.json
 outputs/extracted/

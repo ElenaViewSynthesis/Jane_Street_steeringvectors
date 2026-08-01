@@ -26,9 +26,12 @@ class FakeModule:
         self.hooks.append(hook)
         return FakeHandle(self.hooks, hook)
 
-    def emit(self, output) -> None:
+    def emit(self, output):
         for hook in list(self.hooks):
-            hook(self, (), output)
+            replacement = hook(self, (), output)
+            if replacement is not None:
+                output = replacement
+        return output
 
 
 def fake_modules() -> FinalCircuitModules:
@@ -74,6 +77,23 @@ class ScopedActivationHookTests(unittest.TestCase):
             modules.h_relu.emit("only-one")
             with self.assertRaisesRegex(ActivationExecutionError, "coverage"):
                 hooks.captured()
+
+    def test_h192_transform_precedes_h192_capture(self) -> None:
+        modules = fake_modules()
+
+        def transform(_module, _inputs, output):
+            return f"transformed-{output}"
+
+        with ScopedActivationHooks(modules, h192_transform=transform) as hooks:
+            hooks.begin_inference()
+            emitted = modules.h_relu.emit("original")
+            for role, module in modules.by_role().items():
+                if role != "h192":
+                    module.emit(f"value-{role}")
+            captured = hooks.captured()
+
+        self.assertEqual(emitted, "transformed-original")
+        self.assertEqual(captured["h192"], "transformed-original")
 
 
 if __name__ == "__main__":
