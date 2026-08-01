@@ -39,5 +39,20 @@ of the unpadded input:
 | `red fox` | `886ad9f73388afe14f2fe4ba1884a2d6` |
 
 None equals the MD5 digest of the corresponding 55-byte null-padded input. This establishes the
-ordinary MD5 interpretation for the tested ASCII path. Non-ASCII inputs and boundary cases still
-need activation capture before generalizing the byte-encoding claim.
+ordinary MD5 interpretation for the tested ASCII path.
+
+## MD5 Boundary Result
+
+`m4-md5-boundary-v1` adds 54/55/56-character inputs, embedded and trailing nulls, Latin-1,
+combining Unicode, BMP Unicode, and emoji. All 20 observations were deterministic.
+
+- Length 55 and 56 decode to the same predicate digest, confirming a 55-Python-character cutoff.
+- A trailing null in `abc\0` decodes to the digest for `abc`; an embedded null has a different
+  digest. The model therefore exposes a null-sensitive input path with nontrivial termination
+  behavior.
+- `café` and `ÿ` agree with one-byte Latin-1/code-point candidates, while decomposed `café`,
+  `漢`, and `😀` do not agree with any tested UTF-8, Latin-1, truncated, or padded candidate.
+
+Thus the recovered circuit is MD5-like on the tested short ASCII and byte-range paths, but the
+exact universal conversion from the 55 float code points to MD5 bytes remains unresolved. In
+particular, it is not a universal raw UTF-8, raw Latin-1, or 55-byte-null-padded encoding rule.

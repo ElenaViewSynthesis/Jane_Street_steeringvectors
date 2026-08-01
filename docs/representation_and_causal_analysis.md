@@ -2,9 +2,9 @@
 
 ## Status
 
-Milestone 4 is in progress. Deterministic final-representation capture and exact readout
-verification are implemented. Held-out semantic-direction analysis and activation interventions
-remain pending.
+Milestone 4's three requested workstreams are implemented and exercised with validated reports.
+The outcome is a bounded encoding conclusion, a rigorous semantic null result, and exact causal
+agreement between recovered downstream algebra and interventions.
 
 ## Capture Boundary
 
@@ -32,10 +32,10 @@ readout = W5440 z48 + b5440
 output = ReLU(readout)
 ```
 
-The trusted host accepts a report only when all reconstruction errors are at most `1e-5`, the
-returned scalar exactly matches the final hook, the manifest and artifact hashes match, repeated
-activation digests agree with the determinism flag, and the complete report passes its versioned
-schema.
+The trusted host accepts a report only when all reconstruction errors are at most `1e-4` (to allow
+bounded float32 accumulation from additive directions), the returned scalar exactly matches the
+final hook, the manifest and artifact hashes match, repeated activation digests agree with the
+determinism flag, and the complete report passes its versioned schema.
 
 ## Smoke Experiment
 
@@ -65,8 +65,50 @@ for the tested ASCII inputs. It also explains why broad scalar probing returned 
 published scalar checks the digest against the fixed target
 `c7ef65233c40aa32c2b9ace37595fa7c` and discards all partial information.
 
-The current evidence does not yet determine behavior for non-ASCII inputs or every truncation
-boundary. Those cases should be added before claiming a general text-to-byte encoding rule.
+### Boundary encoding experiment
+
+The 10-case `m4-md5-boundary-v1` suite was captured twice per case. It establishes a 55 Python
+character cutoff: 55 and 56 copies of `a` produce the same decoded digest. It also falsifies a
+universal simple byte rule: `café` and `ÿ` agree with Latin-1/code-point byte candidates, whereas
+the null, decomposed Unicode, BMP, and emoji cases agree with none of full/truncated UTF-8,
+Latin-1, code-point-byte, or padded-code-point candidates. The exact MD5 byte encoding remains
+unresolved outside the demonstrated short-ASCII and byte-range behavior.
+
+## Held-out Semantic Directions
+
+`m3-semantic-factorial-v1` was captured twice per case (450 observations). Directions are
+normalized one-vs-rest `h192` mean differences, fit separately for left and right word slots.
+Each of three folds holds out one lexeme from every category and excludes every pair containing a
+held-out lexeme from training. The result is a null finding:
+
+| Slot | Held-out accuracy | Chance |
+|---|---:|---:|
+| left | 0.180 | 0.200 |
+| right | 0.207 | 0.200 |
+
+Each fold also has 64 randomized-label controls. The observed accuracies are indistinguishable
+from those controls, so this pipeline does not claim semantic directions. The analysis keeps an
+explicitly leaky lexical-identity diagnostic separate from the held-out metric.
+
+## Causal Downstream Tests
+
+The intervention sandbox binds a float32-vector specification to the model, manifest, and source
+activation-report hashes. A forward hook changes `h192`, then captures the effective `h192`,
+`a48`, `z48`, readout preactivation, and final output. It reports predicted and observed deltas,
+all predicate-ReLU crossings, and final-ReLU crossing status.
+
+The full canonical control suite replaces `h192` with the recovered target bit layout on all four
+smoke inputs: it produces 16/16 matches, readout `1.0`, and scalar `1.0`. Each of 16 controls
+then flips one recovered predicate bit; each produces 15/16 matches, readout `0.0`, and scalar
+`0.0`. The suite contains 136 intervention observations and all reported deltas agree exactly.
+
+The complete semantic sweep executed all 30 held-out directions at strengths `-1`, `0`, and `1`
+on their held-out category cases (1,800 intervention observations). Maximum errors were `0.0`
+for predicate deltas, `3.0517578125e-05` for readout deltas, and `0.0` for output deltas. It
+recorded predicate-ReLU crossings in 530 observations, no final-ReLU crossings, no nonzero scalar
+outputs, readouts from `-15.000030517578125` to `-13.238693237304688`, and zero to one matched
+predicate. This supports the recovered local piecewise-affine circuit while providing no evidence
+that the directions are semantic.
 
 ## Reproduction
 
@@ -84,12 +126,18 @@ python3 scripts/run_activation_sandbox.py \
 Generated activation reports are ignored by Git. Their inputs and the aggregate findings are
 committed in the manifest and this document.
 
-## Remaining Milestone 4 Work
+## Reproduction of Causal Reports
 
-- Capture non-ASCII and 55-character boundary cases to define the exact MD5 byte input.
-- Extract candidate category directions with a lexeme-level train/held-out split.
-- Evaluate direction projections against held-out labels and randomized-label controls.
-- Add hash-bound interventions at `h192`, measuring predicate values, readout preactivation, and
-  final output.
-- Replace `h192` with a canonical target representation, then break one predicate at a time to
-  verify the final gate causally.
+```bash
+python3 scripts/generate_intervention_specs.py --kind semantic \
+  --manifest experiments/probes/m3-semantic-factorial-v1.json \
+  --source-activation-report outputs/activations/m4-semantic-factorial-v1.json \
+  --semantic-analysis outputs/activations/m4-semantic-direction-analysis-v1.json \
+  --output outputs/interventions/m4-semantic-direction-interventions-v1.json
+
+python3 scripts/run_intervention_sandbox.py --venv /path/to/python-3.11-analysis-venv \
+  --manifest experiments/probes/m3-semantic-factorial-v1.json \
+  --source-activation-report outputs/activations/m4-semantic-factorial-v1.json \
+  --spec outputs/interventions/m4-semantic-direction-interventions-v1.json \
+  --report outputs/interventions/m4-semantic-direction-report-v1.json
+```
