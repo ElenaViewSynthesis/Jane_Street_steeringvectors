@@ -6,7 +6,10 @@ __pycache__/
 *.pyc
 model*.pt
 outputs/reports/*.json
-outputs/reports/plots/
+outputs/reports/plots/*
+!outputs/reports/plots/m5-direction-gram-v1.png
+!outputs/reports/plots/m5-response-gram-v1.png
+!outputs/reports/plots/m5-cross-fold-cosine-model-v1.png
 outputs/probes/*.json
 outputs/activations/*.json
 outputs/interventions/*.json
