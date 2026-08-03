@@ -2,6 +2,7 @@
 .venv-py311/
 .tmp/
 __pycache__/
+.private/
 *.pyc
 model*.pt
 outputs/reports/*.json
