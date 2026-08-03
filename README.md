@@ -236,6 +236,57 @@ python3 scripts/run_probe_sandbox.py \
   --repetitions 2
 ```
 
+### Verify the `vegetable dog` puzzle baseline
+
+The official puzzle displays `vegetable dog` with output `0`. To reproduce that result using the
+local Python 3.11 environment and the hash-gated sandbox, run the complete smoke manifest (which
+contains that exact input):
+
+```bash
+cd /mnt/c/Users/proxi/Documents/codex-jane/Jane_Street_steeringvectors
+
+python3 scripts/run_probe_sandbox.py \
+  --model model_3_11.pt \
+  --venv /home/proxi/.venvs/jsmi-py311 \
+  --manifest experiments/probes/m3-smoke-v1.json \
+  --report outputs/probes/manual-smoke-check.json \
+  --expected-sha256 43aa7da7ccf749ae1fb95f8b7a6aa49536b73e27f0ac74cb90d5f824ccd484b2 \
+  --repetitions 2 \
+  --cpu-seconds 900 \
+  --memory-gib 8 \
+  --output-mib 16
+```
+
+Extract only the two `vegetable dog` observations from the validated report:
+
+```bash
+python3 -c '
+import json
+report = json.load(open("outputs/probes/manual-smoke-check.json"))
+row = next(
+    row for row in report["results"]
+    if row["case"]["input"] == "vegetable dog"
+)
+print("input:", row["case"]["input"])
+print("outputs:", [observation["value"] for observation in row["observations"]])
+print("deterministic:", row["deterministic"])
+'
+```
+
+Expected output:
+
+```text
+input: vegetable dog
+outputs: [0.0, 0.0]
+deterministic: True
+```
+
+The generated report remains in `outputs/probes/manual-smoke-check.json`. Generated probe reports
+are intentionally ignored by Git because they contain runtime-specific metadata.
+
+This is the documented zero-output baseline, not the still-pending two-word input whose target
+digest would make the model return `1.0`.
+
 Run the complete semantic factorial by changing the manifest and report paths:
 
 ```bash
@@ -295,6 +346,47 @@ Jacobian jumps, then checks its crossing predictions against the intervention re
 models all 150 cross-fold cosine cells with slot/fold-pair fixed effects and coherent fold-label
 permutation inference; this is reported as a stability diagnostic, separate from held-out semantic
 accuracy.
+
+## Measure Jacobian Jumps at Crossings
+
+The recovered `h192` tail is piecewise affine, so its ordinary Hessian is zero inside a fixed ReLU
+region. `scripts/analyze_local_geometry.py` therefore measures changes in the first derivative
+when a bounded semantic-direction intervention changes the predicate-ReLU activation pattern.
+
+For each of the 30 directions, 10 held-out cases, and strengths `-1` and `+1`, the analyzer:
+
+1. Reconstructs the endpoint using the exact float32 direction stored in the intervention spec.
+2. Compares the baseline and endpoint predicates with the repository convention
+   `active = preactivation > 0` to identify changed rows among the 48 predicate ReLUs.
+3. Solves the exact directional location of each changed hyperplane as
+   `alpha = -residual / slope` rather than selecting an arbitrary epsilon.
+4. Computes the analytic readout gradients at the baseline and endpoint and stores their
+   difference as the readout Jacobian jump.
+5. Computes the corresponding output-gradient change after accounting for the final ReLU.
+6. Requires the predicted changed-row set to match both repetitions in the validated intervention
+   report.
+
+Each entry in `boundary_analysis.endpoints` of
+`outputs/reports/m5-local-geometry-v1.json` contains:
+
+| Field | Meaning |
+|---|---|
+| `changed_relu_rows` | Predicate-ReLU rows whose active state differs at the endpoint |
+| `directional_crossings` | Crossing row, exact `alpha`, and baseline-boundary status |
+| `readout_jacobian_jump` | Net 192-dimensional readout-gradient difference |
+| `readout_jacobian_jump_norm` | L2 magnitude of that net gradient change |
+| `output_jacobian_jump_norm` | L2 change after applying the final-ReLU state |
+| `final_relu_crossed` | Whether the readout changed sign across the final output boundary |
+
+The current report evaluates 600 nonzero endpoints. Of these, 265 change at least one predicate
+ReLU; their two recorded repetitions produce 530 crossing observations, all reproduced with zero
+mismatches. No endpoint crosses the final ReLU.
+
+The stored jump is the net baseline-to-endpoint Jacobian change. If an endpoint crosses multiple
+hyperplanes, it can aggregate several individual discontinuities; use the recorded `alpha` values
+to isolate one-sided per-boundary jumps in a follow-up analysis. This measurement characterizes
+the recovered circuit's local geometry and does not turn the held-out semantic-direction null
+result into semantic evidence.
 
 ## Synthesizing Reproducible Findings
 
