@@ -85,10 +85,50 @@ direction matrix has numerical rank 24. A six-block model of all 150 cross-fold 
 a same-category-minus-control contrast of 0.309 (coherent 10,000-repetition permutation
 p=0.0001), interpreted only as fitted-direction stability because held-out accuracy remains at
 chance. Readout and output Hessians are exactly zero at a clean fixed-region point, so boundary
-crossings and Jacobian jumps remain the primary nonlinear measurements. PyHessian is intentionally
-not used because no parameter-space loss objective is defined.
+crossings and Jacobian jumps remain the primary nonlinear measurements.
+
+PyHessian and BackPACK are intentionally not used in this milestone. The measured independent
+variable is the 192-dimensional activation `h192`, not the 288,998,553 model parameters, and the
+project defines neither a labeled training dataset nor a scalar parameter-space loss. The exact
+`h192` Jacobians and `192 x 192` Hessian sanity checks fit directly in `torch.func`. Adding an
+arbitrary MSE or classification target solely to obtain nonzero curvature would answer a different,
+invented question. A future parameter-curvature experiment may add BackPACK or PyHessian only
+after specifying and versioning the loss, dataset, parameter subset, and interpretation of the
+result.
 
 The synthesis validates the architecture, probe, activation, intervention, semantic-analysis,
 geometry, and plot hashes before writing its machine-readable summary, artifact inventory, and
 human report. A fresh environment can regenerate the outputs using the committed manifests and
 the documented Python 3.11 environments.
+
+## Future Directions
+
+Milestones 1–5 establish the recovered mechanism, causal controls, local geometry, and
+reproducible evidence package. The following milestone extends that work to the outstanding
+input-level puzzle objective.
+
+### 6. Original Puzzle Completion
+
+Status: pending
+
+The official puzzle displays `vegetable dog` as a baseline with model output `0`; it is a clue to
+the input format, not the positive solution. The repository's hash-bound smoke report confirms
+that result twice. Its recovered predicate digest is `ab981aaa62cf6412f3aef1a11cd9b94b`, which
+does not equal target `c7ef65233c40aa32c2b9ace37595fa7c`.
+
+Jane Street's retrospective states that the intended positive input consists of two lowercase
+English words separated by one space. Complete the original challenge by:
+
+- adding a deterministic, offline `hashlib.md5` word-pair search with versioned word-list
+  provenance, normalization rules, candidate count, and target digest;
+- keeping the high-volume search outside the model sandbox because short-ASCII predicate output
+  has already been validated as ordinary MD5;
+- publishing the discovered natural-text preimage without treating a canonical `h192`
+  replacement as an input-level solution; and
+- verifying the candidate through the hash-gated model sandbox for at least two deterministic
+  repetitions, with all 16 predicates matched, readout `1.0`, and final output `1.0`.
+
+Acceptance criterion: a reproducible two-word search artifact identifies a target-digest preimage,
+and the unchanged model returns `1.0` for that exact text input in a validated sandbox report.
+
+Reference: <https://blog.janestreet.com/can-you-reverse-engineer-our-neural-network/>
