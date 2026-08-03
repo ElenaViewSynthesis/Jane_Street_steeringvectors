@@ -1,0 +1,7 @@
+-r analysis-cpu.txt
+
+# Offline local-geometry analysis. Keep these out of the model-execution sandbox.
+numpy==2.3.5
+scipy==1.16.3
+matplotlib==3.11.1
+seaborn==0.13.2

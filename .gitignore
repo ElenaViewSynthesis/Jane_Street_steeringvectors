@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 model*.pt
 outputs/reports/*.json
+outputs/reports/plots/
 outputs/probes/*.json
 outputs/activations/*.json
 outputs/interventions/*.json
