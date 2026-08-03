@@ -50,24 +50,45 @@ positional, and interaction effects cannot be estimated from the final output al
 
 ## 4. Representation and Causal Analysis
 
-Status: in progress
+Status: implemented
 
 - Capture intermediate activations with scoped hooks. (implemented for the final five modules)
-- Relate activation directions to changes in the scalar output.
+- Relate activation directions to changes in the scalar output. (implemented with 1,800 bounded
+  semantic-direction intervention observations)
 - Test whether the final readout is linear in the last hidden representation. (verified exactly
   for the readout preactivation; the published scalar includes a final ReLU)
-- Extract candidate semantic directions and validate them on held-out inputs.
-- Perform activation interventions to distinguish causal features from correlations.
+- Extract candidate semantic directions and validate them on held-out inputs. (implemented with
+  whole-lexeme folds; left 0.180 and right 0.207 accuracy versus 0.200 chance)
+- Perform activation interventions to distinguish causal features from correlations. (implemented
+  with canonical gate controls and hash-bound additive/replacement interventions)
 
-The first activation smoke run captured eight deterministic observations with zero reconstruction
-error. For all four tested ASCII inputs, the 16 decoded predicate bytes exactly match ordinary MD5
-of the unpadded input. See `docs/representation_and_causal_analysis.md`.
+The recovered downstream algebra predicts every predicate delta exactly and every readout delta to
+within `3.0517578125e-05`. Canonical target replacement produces output `1.0`; each single-predicate
+break produces `0.0`. See `docs/representation_and_causal_analysis.md`.
 
 ## 5. Reproducible Findings
 
-Status: pending
+Status: implemented
 
-- Maintain a hypothesis and falsification log.
-- Save machine-readable experiment results under `outputs/`.
-- Produce a deterministic analysis notebook or report.
+- Maintain a hypothesis and falsification log. (`docs/research_log.md`)
+- Save machine-readable experiment results under `outputs/`. (versioned local-geometry, inventory,
+  and synthesis JSON reports; generated artifacts remain ignored by Git)
+- Produce a deterministic analysis notebook or report. (`scripts/analyze_local_geometry.py` and
+  `scripts/synthesize_findings.py` provide the canonical headless path)
 - Document the inferred mechanism, supporting evidence, and remaining uncertainty.
+  (`docs/final_report.md`, generated from validated source reports)
+
+The local-geometry report builds the exact `16 x 192` predicate Jacobian, verifies it with
+`torch.func`, emits direction and response Gram matrices, computes the 30-direction spectrum, and
+reproduces all 530 observed predicate-ReLU crossing observations with zero mismatches. The
+direction matrix has numerical rank 24. A six-block model of all 150 cross-fold cosine cells gives
+a same-category-minus-control contrast of 0.309 (coherent 10,000-repetition permutation
+p=0.0001), interpreted only as fitted-direction stability because held-out accuracy remains at
+chance. Readout and output Hessians are exactly zero at a clean fixed-region point, so boundary
+crossings and Jacobian jumps remain the primary nonlinear measurements. PyHessian is intentionally
+not used because no parameter-space loss objective is defined.
+
+The synthesis validates the architecture, probe, activation, intervention, semantic-analysis,
+geometry, and plot hashes before writing its machine-readable summary, artifact inventory, and
+human report. A fresh environment can regenerate the outputs using the committed manifests and
+the documented Python 3.11 environments.

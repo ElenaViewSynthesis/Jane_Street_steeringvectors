@@ -13,19 +13,19 @@ git log --oneline --decorate -8
 python3 -m unittest discover -s tests -v
 ```
 
-At the start of this handoff, the repository was on branch `codex/local-work`, `HEAD` and
-`origin/main` both pointed to commit `c908216`, and the working tree was clean. Creating this file
-makes it the only expected uncommitted change.
+The repository is on branch `codex/local-work`. The current working tree contains the expected
+Milestone 5 implementation: local-geometry analysis, the synthesis pipeline, tests, the local
+skill, requirements, and synchronized documentation. Inspect the diff before adding new work.
 
 The latest published commits are:
 
 ```text
+57e2918 docs(project): add next-session implementation handoff
 c908216 docs(analysis): connect semantic directions to local geometry
 ee5772f docs(architecture): explain semantic intervention sweep
 d921f0c docs(analysis): record Milestone 4 evidence
 8fed3f9 feat(experiments): generate reproducible intervention suites
 f7dd0d6 feat(sandbox): add hash-bound h192 interventions
-1275fe5 feat(analysis): characterize MD5 encoding boundaries
 ```
 
 ## Safety Boundary
@@ -105,8 +105,26 @@ for estimating lexical, positional, or interaction effects.
 - hash-bound additive and replacement interventions at `h192`; and
 - analytic-versus-observed predicate, readout, output, and ReLU-crossing reports.
 
-Milestone 4 is functionally complete. `MILESTONES.md` and the README still contain stale text that
-calls it in progress; synchronize those documents early in the next session.
+Milestone 4 is complete and the project status documents are synchronized.
+
+### Milestone 5: Reproducible findings
+
+- exact direction, predicate-Jacobian, Gram, spectrum, boundary, and Jacobian-jump analysis;
+- isolated PyTorch/SciPy/Matplotlib/Seaborn geometry requirements;
+- deterministic generated-artifact inventory and findings synthesis;
+- generated human-readable final report;
+- hypothesis and falsification research log; and
+- project-local `analyze-relu-local-geometry` skill.
+
+The 30 directions have numerical rank 24 and entropy effective rank approximately 19.656. The
+exact `16 x 192` predicate Jacobian has 192 nonzero entries and zero error against `torch.func`.
+The six-block model of all 150 cross-fold cosine cells estimates a 0.309 same-category alignment
+contrast (same-category mean 0.247 versus control mean -0.062; coherent 10,000-repetition
+permutation p=0.0001). This is fitted-direction stability, while held-out semantic accuracy
+remains at chance.
+Of 600 nonzero direction/case endpoints, 265 cross a predicate ReLU. These reproduce all 530
+repeated crossing observations with zero mismatches. Readout and output Hessians are exactly zero
+at a clean fixed-region baseline.
 
 ## Recovered Final Mechanism
 
@@ -211,6 +229,9 @@ exist in a fresh clone. Preserve or reproduce them before relying on their paths
 | `outputs/interventions/m4-canonical-gate-report-v1.json` | `6d0a041956d640c9c8f888bad555d30e8073333bdbc273c07b255b6ddaf15706` | 2.2 MiB |
 | `outputs/interventions/m4-semantic-direction-interventions-v1.json` | `8326eaad91905e1766329887f4d4eee75a95805d11f01a5ff76cac2d33fd2664` | 184 KiB |
 | `outputs/interventions/m4-semantic-direction-report-v1.json` | `8c611d0c90ecf01a82c3da74954652ac51b3ed9f6d656a9f6b08f8a15b439d94` | 38 MiB |
+| `outputs/reports/m5-local-geometry-v1.json` | `8b95aac444e3ce930cb0f010060b434d2c01d95214a528810f40fa6b274c7d3c` | 1.4 MiB |
+| `outputs/reports/m5-artifact-inventory-v1.json` | `a4ab3d16281098bfd101c3a68e0b09e474e1ea270f42ea34fbd939e13128cad9` | 4.4 KiB |
+| `outputs/reports/m5-findings-summary-v1.json` | `5cf66aa95e1b1dba97266bc8a3abcd00bd1064f779cbec3d55caa2de205c06ed` | 5.9 KiB |
 
 `outputs/activations/m4-capture-smoke-v1-new.json` is an ignored duplicate/temporary output and is
 not part of the canonical artifact list above. Confirm its contents before deleting it.
@@ -223,7 +244,7 @@ not part of the canonical artifact list above. Confirm its contents before delet
 python3 -m unittest discover -s tests -v
 ```
 
-Current result: 67 tests passing.
+Current result: 77 tests passing.
 
 ### Activation smoke
 
@@ -311,21 +332,31 @@ The full semantic intervention run can take several minutes. When invoking it th
 interactive execution tool, start it as a persistent PTY session and poll rather than imposing a
 30-second command timeout.
 
+### Local geometry and Milestone 5 synthesis
+
+Use a separate Python 3.11 environment installed from `requirements/geometry-analysis.txt`, then
+run:
+
+```bash
+python3 scripts/analyze_local_geometry.py \
+  --semantic-analysis outputs/activations/m4-semantic-direction-analysis-v1.json \
+  --activation-report outputs/activations/m4-semantic-factorial-v1.json \
+  --manifest experiments/probes/m3-semantic-factorial-v1.json \
+  --intervention-spec outputs/interventions/m4-semantic-direction-interventions-v1.json \
+  --intervention-report outputs/interventions/m4-semantic-direction-report-v1.json \
+  --output outputs/reports/m5-local-geometry-v1.json \
+  --plot-directory outputs/reports/plots
+
+python3 scripts/synthesize_findings.py
+```
+
+The local temporary package target used during implementation was `/tmp/jsmi-geometry-packages`;
+it is not part of the repository or the canonical environment. PyHessian was not installed or
+used because the project defines no parameter-space loss objective.
+
 ## Recommended Next Work
 
-### 1. Synchronize project status documentation
-
-`README.md` and `MILESTONES.md` predate the completed Milestone 4 implementation. Update:
-
-- the repository layout with the intervention and analysis scripts;
-- the current findings with boundary, semantic-null, and causal-control results;
-- Milestone 4 status from `in progress` to `implemented`; and
-- the “Next” list so it points to the remaining scientific questions and Milestone 5.
-
-Acceptance criterion: README, milestones, planning, and detailed findings describe the same
-project state without contradictory status labels.
-
-### 2. Resolve the code-point-above-255 encoding behavior
+### 1. Resolve the code-point-above-255 encoding behavior
 
 Create a second encoding manifest designed to localize thresholds and equivalence classes rather
 than mixing unrelated examples. Suggested cases:
@@ -344,7 +375,7 @@ unsupported-character sentinel. Do not weaken report validation to make a candid
 Acceptance criterion: either one deterministic transform explains all targeted cases or the
 remaining equivalence classes and counterexamples are documented precisely.
 
-### 3. Search for the target preimage in a structured candidate domain
+### 2. Search for the target preimage in a structured candidate domain
 
 For short ASCII, model evaluation is unnecessary during search because the circuit has been shown
 to expose ordinary MD5. Build a safe, deterministic offline search script using `hashlib.md5`:
@@ -368,27 +399,7 @@ Acceptance criterion: the search space is reproducible and hash-only; either it 
 that the sandbox confirms with output `1.0`, or it records exactly which finite domain was
 exhausted.
 
-### 4. Implement direction-geometry analysis
-
-The conceptual design is in `docs/semantic_directions_and_local_geometry.md`. Add a deterministic
-script that consumes the validated semantic analysis and emits:
-
-- the `30 × 192` direction matrix `D`;
-- the `30 × 30` Gram matrix `DDᵀ`;
-- cross-fold and left/right cosine summaries;
-- singular values, effective rank, and explained energy;
-- the exact `16 × 192` predicate Jacobian `J`;
-- predicate responses `DJᵀ`; and
-- the response Gram matrix `DJᵀJDᵀ`.
-
-Keep this offline and separate from the untrusted-model sandbox. If NumPy/SciPy/scikit-learn are
-added, use a separate optional requirements file or virtual environment rather than silently
-changing the pinned model-execution environment.
-
-Acceptance criterion: output is versioned, deterministic, hash-bound to its source analysis, and
-tested against small matrices with known Gram/Jacobian results.
-
-### 5. Add regularized-probe and uncertainty comparisons
+### 3. Add regularized-probe and uncertainty comparisons
 
 Retain the mean-difference estimator as the baseline. Add optional comparisons using:
 
@@ -404,25 +415,7 @@ current rule excluding every training case containing any held-out word must rem
 Acceptance criterion: every estimator is evaluated on identical leakage-free folds and compared
 with a grouped null distribution. A null result remains valid.
 
-### 6. Complete Milestone 5: reproducible findings
-
-`MILESTONES.md` defines Milestone 5 but it is still pending. Implement:
-
-- a hypothesis/falsification research log;
-- a deterministic synthesis script that validates the source JSON reports and produces a compact
-  machine-readable summary;
-- a human-readable final report generated from or checked against that summary;
-- an inventory of local generated artifacts and their hashes; and
-- updated README and milestone status.
-
-A script is preferable to a notebook for the canonical result because it is easier to test and
-reproduce headlessly. A notebook can be added as a visualization layer after the deterministic
-summary exists.
-
-Acceptance criterion: a fresh environment with the model, trusted digest, Python 3.11 sandbox,
-and committed manifests can regenerate every claimed aggregate result.
-
-### 7. Strengthen intervention tests
+### 4. Strengthen intervention tests
 
 The current tests cover vector hashing, manifest case binding, canonical target construction, hook
 ordering, and sandbox command construction. Add focused tests for:
@@ -451,9 +444,14 @@ Mirror the stronger publication tests already present for probe and activation r
 | `scripts/run_intervention_sandbox.py` | Hash-bound causal intervention launcher and publication |
 | `scripts/intervention_worker.py` | Add/replace `h192`, run inference, capture causal results |
 | `scripts/intervention_schema.py` | Spec/report validation and analytic downstream predictions |
+| `scripts/analyze_local_geometry.py` | Exact direction/Jacobian geometry, crossings, Hessian checks, and plots |
+| `scripts/local_geometry_schema.py` | Dependency-free geometry validation and exact predicate algebra |
+| `scripts/synthesize_findings.py` | Validate canonical evidence and generate Milestone 5 reports |
 | `docs/architecture_findings.md` | Input wrapper, architecture, predicate equations |
 | `docs/representation_and_causal_analysis.md` | Milestone 4 evidence and reproduction |
 | `docs/semantic_directions_and_local_geometry.md` | Gram/Jacobian/Hessian and probe-extension design |
+| `docs/final_report.md` | Generated human-readable canonical findings |
+| `docs/research_log.md` | Hypothesis, falsification, null, and open-question log |
 
 ## Repository and Tooling Notes
 

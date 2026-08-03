@@ -56,3 +56,25 @@ combining Unicode, BMP Unicode, and emoji. All 20 observations were deterministi
 Thus the recovered circuit is MD5-like on the tested short ASCII and byte-range paths, but the
 exact universal conversion from the 55 float code points to MD5 bytes remains unresolved. In
 particular, it is not a universal raw UTF-8, raw Latin-1, or 55-byte-null-padded encoding rule.
+
+## Local Geometry Result
+
+The exact predicate Jacobian from `h192` is a constant `16 x 192` matrix with 192 nonzero entries.
+It agrees exactly with `torch.func.jacrev`. The 30 fitted semantic directions span numerical rank
+24, with entropy effective rank approximately 19.656.
+
+Across the six slot/fold-pair blocks, the full 150-cell cosine model compares 30 same-category
+pairs (mean 0.247) with 120 different-category controls (mean -0.062). The blocked
+same-category contrast is 0.309 with R-squared 0.524. A coherent fold-label permutation test
+(10,000 repetitions, fold 0 anchored) gives two-sided p=0.0001. This is evidence of repeatable
+direction-label alignment, not evidence of held-out semantic prediction; held-out accuracy remains
+at chance.
+
+Across 600 unique nonzero direction/case endpoints, 265 change at least one predicate-ReLU
+activation pattern. Repetition produces the 530 crossing observations already present in the
+semantic intervention report; the offline geometry analysis predicts every crossing with zero
+mismatches. No endpoint crosses the final output ReLU.
+
+At a clean fixed-region baseline, ordinary readout and output Hessians are both exactly zero.
+This is a piecewise-affine result, not evidence that the circuit lacks nonlinear boundaries.
+Jacobian jumps and explicit ReLU crossings are the relevant measurements.

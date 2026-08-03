@@ -23,10 +23,17 @@ factorial contrasts. This is consistent with a sparse exact-match circuit and me
 scalar alone cannot expose the underlying lexical or positional features. See
 `docs/behavioral_probing.md`.
 
-Milestone 4 now captures the final 192- and 48-dimensional representations with scoped hooks. Its
-first eight observations were bit-deterministic with zero affine/ReLU reconstruction error. For
-all four tested ASCII inputs, the 16 decoded predicate bytes exactly equal the ordinary MD5 digest
-of the unpadded input. See `docs/representation_and_causal_analysis.md`.
+Milestone 4 captures the final circuit, fits leakage-free whole-lexeme semantic directions, and
+performs hash-bound causal interventions. The semantic estimator is a null result: left accuracy
+is 0.180 and right accuracy is 0.207 versus 0.200 chance. Canonical replacement verifies the gate,
+and all 1,800 semantic intervention observations agree with the recovered downstream algebra.
+See `docs/representation_and_causal_analysis.md`.
+
+Milestone 5 adds deterministic local-geometry and findings synthesis. The 30 candidate directions
+have numerical rank 24. The exact `16 x 192` predicate Jacobian agrees with `torch.func`, and the
+analysis reproduces all 530 observed predicate-ReLU crossing observations with zero mismatches.
+Readout and output Hessians are zero at a clean fixed-region point, as expected for the recovered
+piecewise-affine circuit. See `docs/final_report.md` and `docs/research_log.md`.
 
 The model file remains untrusted serialized input. Direct pickle loading is disabled; live
 architecture analysis is available only through the hash-gated namespace and Landlock launcher.
@@ -54,13 +61,17 @@ The current inspection script can:
 ├── ARTIFACTS.md
 ├── pyproject.toml
 ├── requirements/
-│   └── analysis-cpu.txt
+│   ├── analysis-cpu.txt
+│   └── geometry-analysis.txt
 ├── docs/
 │   ├── architecture_findings.md
 │   ├── behavioral_probing.md
+│   ├── final_report.md
 │   ├── glossary.md
 │   ├── observations.md
-│   └── representation_and_causal_analysis.md
+│   ├── representation_and_causal_analysis.md
+│   ├── research_log.md
+│   └── semantic_directions_and_local_geometry.md
 ├── examples/
 │   └── summarize_linear_shapes.py
 ├── experiments/
@@ -74,16 +85,24 @@ The current inspection script can:
 │   ├── activation_schema.py
 │   ├── activation_worker.py
 │   ├── activation_sandbox_entry.sh
+│   ├── analyze_activation_report.py
+│   ├── analyze_local_geometry.py
+│   ├── generate_intervention_specs.py
 │   ├── generate_probe_manifests.py
 │   ├── inspect_model.py
+│   ├── intervention_schema.py
+│   ├── intervention_worker.py
 │   ├── landlock_exec.py
+│   ├── local_geometry_schema.py
 │   ├── probe_sandbox_entry.sh
 │   ├── probe_schema.py
 │   ├── probe_worker.py
 │   ├── run_architecture_sandbox.py
 │   ├── run_activation_sandbox.py
+│   ├── run_intervention_sandbox.py
 │   ├── run_probe_sandbox.py
-│   └── sandbox_entry.sh
+│   ├── sandbox_entry.sh
+│   └── synthesize_findings.py
 ├── src/
 │   └── jsmi/
 │       └── __init__.py
@@ -98,10 +117,13 @@ The current inspection script can:
     ├── test_activation_worker.py
     ├── test_architecture_sandbox.py
     ├── test_inspect_model.py
+    ├── test_intervention_schema.py
     ├── test_landlock_exec.py
+    ├── test_local_geometry_schema.py
     ├── test_probe_sandbox.py
     ├── test_probe_schema.py
-    └── test_probe_worker.py
+    ├── test_probe_worker.py
+    └── test_synthesize_findings.py
 ```
 
 All `model*.pt` artifacts are intentionally ignored by Git because they are large local files.
@@ -120,6 +142,17 @@ python3 -m pip install -r requirements/analysis-cpu.txt
 
 Installing PyTorch does not make loading an untrusted pickle safe. Never invoke `torch.load`
 directly on this artifact.
+
+Create a separate Python 3.11 environment for offline geometry, SciPy validation, and plots:
+
+```bash
+python3.11 -m venv .venv-geometry
+source .venv-geometry/bin/activate
+python3 -m pip install -r requirements/geometry-analysis.txt
+```
+
+Do not use this environment as a reason to relax the live model sandbox. PyHessian is not a
+dependency because this project currently defines no parameter-space loss objective.
 
 ## Running the Safe Inspector
 
@@ -240,6 +273,41 @@ The versioned report stores `h192`, predicate preactivations, predicate ReLU act
 preactivation, and final output. It also records individual predicate matches, decoded bytes, MD5
 comparisons, tensor digests, and exact affine/ReLU verification errors.
 
+## Running Local-Geometry Analysis
+
+After generating the semantic activation, direction, specification, and intervention reports, run
+the offline analysis from the geometry environment:
+
+```bash
+python3 scripts/analyze_local_geometry.py \
+  --semantic-analysis outputs/activations/m4-semantic-direction-analysis-v1.json \
+  --activation-report outputs/activations/m4-semantic-factorial-v1.json \
+  --manifest experiments/probes/m3-semantic-factorial-v1.json \
+  --intervention-spec outputs/interventions/m4-semantic-direction-interventions-v1.json \
+  --intervention-report outputs/interventions/m4-semantic-direction-report-v1.json \
+  --output outputs/reports/m5-local-geometry-v1.json \
+  --plot-directory outputs/reports/plots
+```
+
+This performs no model loading. It validates all source bindings, computes the exact predicate
+Jacobian, direction and response Gram matrices, singular spectrum, boundary distances, and
+Jacobian jumps, then checks its crossing predictions against the intervention report. It also
+models all 150 cross-fold cosine cells with slot/fold-pair fixed effects and coherent fold-label
+permutation inference; this is reported as a stability diagnostic, separate from held-out semantic
+accuracy.
+
+## Synthesizing Reproducible Findings
+
+Generate the artifact inventory, compact JSON summary, and human-readable final report with:
+
+```bash
+python3 scripts/synthesize_findings.py
+```
+
+The synthesis rejects missing, tampered, unbound, or schema-invalid canonical sources before
+writing `outputs/reports/m5-findings-summary-v1.json`,
+`outputs/reports/m5-artifact-inventory-v1.json`, and `docs/final_report.md`.
+
 ## Tests
 
 The tests generate a tiny, non-executable PyTorch-shaped ZIP archive and do not require the real
@@ -262,14 +330,18 @@ Completed:
 - Run controlled transformation and balanced semantic-factorial suites over 257 inputs.
 - Implement deterministic, hash-bound final-layer activation capture.
 - Verify that the decoded predicate values equal ordinary MD5 for the activation smoke inputs.
+- Establish the 55-character boundary and document unresolved wider-Unicode behavior.
+- Fit and evaluate 30 whole-lexeme-held-out semantic directions as a rigorous null result.
+- Implement and validate canonical and semantic `h192` interventions.
+- Compute exact direction/Jacobian geometry, ReLU crossings, and Hessian sanity checks.
+- Generate a validated artifact inventory, findings summary, research log, and final report.
 
 Next:
 
-- Test non-ASCII and boundary inputs to determine the exact MD5 byte encoding.
-- Extract and validate candidate semantic directions on lexeme-held-out inputs.
-- Add causal activation interventions at the 192-dimensional representation.
-- Document hypotheses and rejected explanations in a research log.
-- Add a reproducible notebook or script for summarizing findings once the model behavior is understood.
+- Resolve the exact code-point transformation above 255 with a threshold-focused manifest.
+- Search finite, reproducibly specified puzzle phrase domains for the target MD5 preimage.
+- Compare regularized probes and grouped uncertainty estimates on the existing leakage-free folds.
+- Strengthen intervention publication and tamper-rejection tests.
 
 See `MILESTONES.md` for the staged implementation plan and acceptance criteria.
 

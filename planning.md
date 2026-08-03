@@ -159,3 +159,33 @@ or a falsified local model.
 | Semantic directions | Factorial activation report, fixed lexeme split, direction-analysis output | Complete: left 0.180 and right 0.207 held-out accuracy versus 0.200 chance; rigorous null |
 | Downstream effects | Versioned intervention specification and validated causal report | Complete: 1,800 semantic interventions and canonical controls; max readout error `3.05e-05` |
 | Milestone synthesis | Updated observations and representation-analysis documents | Complete: evidence, falsifications, and limitations are recorded |
+
+## Milestone 5 Execution and Results
+
+Milestone 5 is implemented as a headless, deterministic pipeline rather than a notebook-only
+workflow.
+
+1. `scripts/analyze_local_geometry.py` validates the semantic analysis, activation report,
+   intervention specification, and 1,800-observation intervention report before computing the
+   exact predicate Jacobian, Gram matrices, spectrum, boundary crossings, Jacobian jumps, and
+   Hessian sanity checks.
+2. `scripts/synthesize_findings.py` revalidates every canonical source report and writes the
+   generated artifact inventory, compact JSON synthesis, and `docs/final_report.md`.
+3. `docs/research_log.md` records supported, falsified, null, and still-open hypotheses.
+
+The geometry environment is separate from model execution. PyTorch 2.7.1 computes derivatives,
+SciPy independently checks the singular values and fits the blocked cosine model, and
+Matplotlib/Seaborn render the four plots.
+PyHessian is not used because the milestone differentiates with respect to `h192` and defines no
+parameter-space loss whose spectrum, trace, or density would be meaningful.
+
+Validated geometry results:
+
+- exact predicate Jacobian shape `16 x 192`, with 192 nonzero entries and zero autograd error;
+- direction-matrix numerical rank 24 and entropy effective rank approximately 19.656;
+- six-block modeling of 150 cross-fold cosine cells: same-category mean 0.247 versus
+  different-category mean -0.062, contrast 0.309, coherent permutation p=0.0001;
+- 600 nonzero direction/case endpoints, of which 265 cross a predicate ReLU;
+- 530 repeated crossing observations reproduced with zero mismatches;
+- zero final-ReLU crossings; and
+- exactly zero readout and output Hessians at a clean fixed-region point.

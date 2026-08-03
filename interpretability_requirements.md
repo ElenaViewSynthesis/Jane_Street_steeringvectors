@@ -25,9 +25,13 @@ Implemented:
 - Scoped final-layer activation capture
 - Exact affine/ReLU readout verification
 - Intermediate predicate decoding and MD5 comparison
+- Whole-lexeme-held-out semantic direction analysis
+- Hash-bound additive and replacement interventions at `h192`
+- Exact direction, predicate-Jacobian, Gram, spectrum, and ReLU-boundary analysis
+- Deterministic findings synthesis, artifact inventory, and generated final report
 
 Not implemented:
 
-- Hypothesis/research logging
-- Steering-vector extraction or intervention
-- Reproducible notebook/report
+- Exact code-point encoding above 255
+- Structured target-preimage search
+- Regularized-probe and grouped-bootstrap comparisons

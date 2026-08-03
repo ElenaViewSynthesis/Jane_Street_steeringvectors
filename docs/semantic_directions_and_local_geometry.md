@@ -281,3 +281,39 @@ Relevant primary documentation:
 - `scripts/intervention_schema.py`: analytic predicate/readout predictions and report validation.
 - `docs/architecture_findings.md`: recovered `h192` block structure, predicate equations, and
   three-ReLU equality circuit.
+
+## Implemented Local-Geometry Result
+
+`scripts/analyze_local_geometry.py` implements the deterministic analysis in a separate Python
+3.11 environment defined by `requirements/geometry-analysis.txt`. PyTorch computes and verifies
+the exact derivatives, SciPy independently checks the singular values, and Matplotlib/Seaborn
+render the generated heatmaps and spectrum.
+
+The validated report contains:
+
+- the exact `16 x 192` predicate Jacobian with 192 nonzero entries;
+- zero maximum error between the analytic matrix and `torch.func.jacrev`;
+- the `30 x 30` direction Gram and response Gram matrices;
+- numerical direction rank 24 and entropy effective rank approximately 19.656;
+- mean same-category cross-fold cosine 0.247 within a slot;
+- a six-block, 150-cell cross-fold model in which same-category cosine 0.247 exceeds the
+  different-category control mean -0.062 by 0.309;
+- a coherent 10,000-repetition fold-label permutation p-value of 0.0001 for that alignment
+  contrast;
+- mean same-category cross-slot cosine -0.081 within a fold;
+- 600 nonzero direction/case endpoints, 265 of which cross a predicate ReLU; and
+- exact reproduction of all 530 repeated crossing observations with zero mismatches.
+
+At the clean `pair-apple-bread` baseline, neither predicate preactivation is on a boundary. Both
+the readout and output Hessian Frobenius norms are exactly zero, as expected within a fixed ReLU
+region. PyHessian is not used: it targets parameter-space loss eigenvalues, trace, and spectral
+density, while this analysis differentiates the recovered tail with respect to `h192` and defines
+no parameter-space loss.
+
+The cross-fold model shows reproducible alignment among directions fitted under the same category
+label. It does not rescue the semantic hypothesis: the held-out classifier remains at chance, and
+cross-slot alignment is slightly negative on average. The modeled contrast is therefore reported
+as direction-estimation stability, not evidence of semantic representation.
+
+Reproduce the report with the command documented in `README.md`; generated JSON and plots live
+under `outputs/reports/` and remain ignored by Git.
