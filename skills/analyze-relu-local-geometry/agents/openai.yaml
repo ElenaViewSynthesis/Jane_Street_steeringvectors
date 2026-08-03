@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analyze ReLU Local Geometry"
+  short_description: "Measure Jacobian jumps and ReLU boundaries"
+  default_prompt: "Use $analyze-relu-local-geometry to analyze local geometry around h192 in the recovered ReLU circuit."
