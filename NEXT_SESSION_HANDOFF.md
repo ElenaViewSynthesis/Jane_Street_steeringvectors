@@ -13,19 +13,24 @@ git log --oneline --decorate -8
 python3 -m unittest discover -s tests -v
 ```
 
-The repository is on branch `codex/local-work`. The current working tree contains the expected
-Milestone 5 implementation: local-geometry analysis, the synthesis pipeline, tests, the local
-skill, requirements, and synchronized documentation. Inspect the diff before adding new work.
+The repository is on branch `codex/local-work`. Before this handoff synchronization, the working
+tree was clean at `608900b`, exactly matching `origin/main`. Milestones 1–5 are published and
+complete; Milestone 6, the natural-text solution to the original puzzle, is pending. Always inspect
+`git status -sb` before adding new work.
 
 The latest published commits are:
 
 ```text
+608900b docs(readme): publish local geometry visualizations
+01dc091 docs(readme): add puzzle and Jacobian verification guides
+0b8c53f docs(roadmap): define original puzzle completion
+4654810 chore(security): exclude private project notes
+8d2622e docs(analysis): publish Milestone 5 evidence and handoff
+519b794 feat(skill): codify ReLU local geometry workflow
+dd4def2 feat(reporting): synthesize validated milestone findings
+92c98d7 feat(geometry): analyze recovered ReLU local structure
+a595f7b build(analysis): isolate local geometry dependencies
 57e2918 docs(project): add next-session implementation handoff
-c908216 docs(analysis): connect semantic directions to local geometry
-ee5772f docs(architecture): explain semantic intervention sweep
-d921f0c docs(analysis): record Milestone 4 evidence
-8fed3f9 feat(experiments): generate reproducible intervention suites
-f7dd0d6 feat(sandbox): add hash-bound h192 interventions
 ```
 
 ## Safety Boundary
@@ -126,6 +131,21 @@ Of 600 nonzero direction/case endpoints, 265 cross a predicate ReLU. These repro
 repeated crossing observations with zero mismatches. Readout and output Hessians are exactly zero
 at a clean fixed-region baseline.
 
+PyHessian and BackPACK are not Milestone 5 dependencies. The analysis differentiates with respect
+to the 192-dimensional `h192` activation and defines no parameter-space loss, labeled dataset, or
+parameter subset. `torch.func` directly handles the exact activation derivatives. Introduce
+parameter-curvature packages only after a future experiment versions those missing choices.
+
+### Milestone 6: Original puzzle completion
+
+Status: pending
+
+The project has recovered the mechanism but has **not solved the original input challenge**.
+`vegetable dog` is the official baseline and correctly returns `0.0`; its digest does not match the
+target. Completion requires finding the intended two-lowercase-English-word input separated by one
+space, then confirming 16/16 predicate matches, readout `1.0`, and output `1.0` in at least two
+deterministic sandbox repetitions.
+
 ## Recovered Final Mechanism
 
 `h192` is the output of module `5437` and the input to `Linear(192, 48)` at module `5438`. Its 192
@@ -214,8 +234,10 @@ Results:
 
 ## Local Generated Artifacts
 
-All generated JSON reports are ignored by Git. They are present on this machine but will not
-exist in a fresh clone. Preserve or reproduce them before relying on their paths.
+All generated JSON reports are ignored by Git. They are present on this machine but will not exist
+in a fresh clone. Preserve or reproduce them before relying on their paths. Three deterministic
+PNG visualizations used by `README.md` are selectively tracked and will exist in a fresh clone;
+the singular-value plot remains generated and ignored.
 
 | Artifact | SHA-256 | Approximate size |
 |---|---|---:|
@@ -232,6 +254,14 @@ exist in a fresh clone. Preserve or reproduce them before relying on their paths
 | `outputs/reports/m5-local-geometry-v1.json` | `8b95aac444e3ce930cb0f010060b434d2c01d95214a528810f40fa6b274c7d3c` | 1.4 MiB |
 | `outputs/reports/m5-artifact-inventory-v1.json` | `a4ab3d16281098bfd101c3a68e0b09e474e1ea270f42ea34fbd939e13128cad9` | 4.4 KiB |
 | `outputs/reports/m5-findings-summary-v1.json` | `5cf66aa95e1b1dba97266bc8a3abcd00bd1064f779cbec3d55caa2de205c06ed` | 5.9 KiB |
+
+Tracked visualization assets:
+
+| Artifact | SHA-256 | Size |
+|---|---|---:|
+| `outputs/reports/plots/m5-direction-gram-v1.png` | `dfa3f8e97f2de87748cc54798c669097012fa897a84ccc8cfe09537f4ccb7d98` | 103,297 bytes |
+| `outputs/reports/plots/m5-response-gram-v1.png` | `5ffd8bc7f570c08ca1e6d2dccf7c11ddfdcece6861339fa05a176fb5aeaec1dc` | 104,200 bytes |
+| `outputs/reports/plots/m5-cross-fold-cosine-model-v1.png` | `52d448eed924c5479df0e0fd2bd15ea3c20bfd5dccb38d6d93922f2529de52bf` | 227,727 bytes |
 
 `outputs/activations/m4-capture-smoke-v1-new.json` is an ignored duplicate/temporary output and is
 not part of the canonical artifact list above. Confirm its contents before deleting it.
@@ -351,10 +381,15 @@ python3 scripts/synthesize_findings.py
 ```
 
 The local temporary package target used during implementation was `/tmp/jsmi-geometry-packages`;
-it is not part of the repository or the canonical environment. PyHessian was not installed or
-used because the project defines no parameter-space loss objective.
+it is not part of the repository or the canonical environment. PyHessian and BackPACK were not
+installed because the project defines no parameter-space loss objective.
 
 ## Recommended Next Work
+
+**Highest priority:** complete the structured two-word target-preimage search described in item 2.
+That is the only remaining task required to solve the original puzzle. The encoding, alternative
+probe, and test-hardening items are useful research extensions but are not blockers for the
+short-ASCII positive-input solution.
 
 ### 1. Resolve the code-point-above-255 encoding behavior
 
@@ -455,12 +490,13 @@ Mirror the stronger publication tests already present for probe and activation r
 
 ## Repository and Tooling Notes
 
-- Generated reports and `model*.pt` are ignored intentionally. Do not use `git add -f` on them.
+- Generated JSON reports and `model*.pt` are ignored intentionally. Do not use `git add -f` on
+  them. The three README visualization PNGs are deliberate tracked exceptions.
 - The current unit suite does not require PyTorch or the 1.16 GB model.
-- `gh auth status` currently reports an invalid GitHub CLI token. Direct `git push` has continued to
-  work through the configured Git remote credentials. Reauthenticate `gh` before opening PRs.
+- Verify `gh auth status` before publishing. It succeeded for the latest direct-main pushes.
 - Direct pushes requested by the user used `git push origin HEAD:main` from `codex/local-work`.
 - Before any future push, fetch `origin/main` and confirm the update is a fast-forward.
+- `.private/` is intentionally ignored. Never stage, quote, or publish its contents.
 - Preserve detailed conventional commit bodies and split commits by analysis, sandbox,
   experiments, tests, and documentation when changes span those concerns.
 
@@ -468,6 +504,7 @@ Mirror the stronger publication tests already present for probe and activation r
 
 ```text
 Read AGENTS.md and NEXT_SESSION_HANDOFF.md completely. Inspect git status and current milestone
-documents. Continue with the highest-priority unfinished task, preserving the sandbox boundary and
-validating all generated evidence before documenting conclusions.
+documents. Milestones 1–5 are complete, but the original puzzle is not solved. Continue with the
+Milestone 6 two-word MD5 preimage search, preserving the sandbox boundary and validating any hit
+through two deterministic model repetitions before documenting completion.
 ```

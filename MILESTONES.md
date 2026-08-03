@@ -1,5 +1,12 @@
 # Mechanistic Interpretability Milestones
 
+## Project Completion Status
+
+The mechanistic-interpretability investigation is complete through Milestone 5, but the original
+Jane Street input challenge is **not yet solved**. Completing the internal gate through a
+canonical `h192` intervention proves the recovered mechanism; it does not supply the natural-text
+input required by the puzzle. End-to-end completion depends on pending Milestone 6.
+
 ## 1. Artifact Safety and Reproducibility
 
 Status: implemented
@@ -110,6 +117,8 @@ input-level puzzle objective.
 ### 6. Original Puzzle Completion
 
 Status: pending
+
+This is the only milestone required to claim that the original puzzle itself has been solved.
 
 The official puzzle displays `vegetable dog` as a baseline with model output `0`; it is a clue to
 the input format, not the positive solution. The repository's hash-bound smoke report confirms
