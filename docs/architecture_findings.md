@@ -131,6 +131,33 @@ For integer-valued `v[j]`, each three-ReLU expression is exactly one when `v[j] 
 otherwise. The last two parameterized layers therefore implement 16 equality indicators followed
 by an AND-like threshold: the final output is one only when all 16 predicates hold.
 
+## Semantic Intervention Sweep
+
+Those `q` values are combined into 16 predicate values, compared with the fixed digest targets,
+then passed through the three-ReLU equality circuit described above.
+
+The 1,800 semantic interventions are:
+
+\[
+30\ \text{directions} \times 10\ \text{held-out cases each} \times
+3\ \text{strengths}\ (-1, 0, +1) \times 2\ \text{repetitions} = 1800
+\]
+
+The 30 directions are two input slots (left/right) × three whole-lexeme holdout folds × five
+categories. Each is a normalized one-vs-rest mean-difference direction fitted on training lexemes
+only, then applied only to held-out cases in that category. The intervention specifications are
+generated in `scripts/generate_intervention_specs.py`.
+
+A predicate delta is the 16-vector:
+
+\[
+\Delta p = p(h_{after}) - p(h_{baseline})
+\]
+
+It measures how much each recovered MD5-byte-like predicate expression changed, not whether the
+final scalar changed. The comparison is derived directly from the effective `h192` delta and
+recorded alongside the actual measured predicate values in `scripts/intervention_schema.py`.
+
 The weight structure strongly indicates that the earlier 2,719 linear stages compile the 55 input
 code points into discrete bit-like intermediate values. Behavioral and activation probes are still
 required to map those predicates back to human-readable properties of the text.
